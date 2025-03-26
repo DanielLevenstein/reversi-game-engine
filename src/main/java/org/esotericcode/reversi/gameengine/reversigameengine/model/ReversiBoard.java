@@ -23,7 +23,7 @@ public class ReversiBoard {
     private String gameBoardStr;
 
     public char[][] getGameBoardAsArray() {
-        return Arrays.stream(gameBoardStr.split(";"))
+        return Arrays.stream(gameBoardStr.split("\n"))
                      .map(String::toCharArray)
                      .toArray(char[][]::new);
     }
@@ -45,6 +45,10 @@ public class ReversiBoard {
         int letterIndex = algebraicNotation.charAt(0) - 'A';
         int numberIndex = 8 - (algebraicNotation.charAt(1) - '0');
         return getPiece(letterIndex, numberIndex);
+    }
+
+    public boolean isValidMove(String algebraicNotation, char player) {
+        return isValidMove(algebraicNotation.charAt(0) - 'A', 8 - (algebraicNotation.charAt(1) - '0'), player);
     }
 
     private void setPiece(int letterIndex, int numIndex, char piece) {
@@ -78,13 +82,13 @@ public class ReversiBoard {
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
                 if(i == 3 && j == 3) {
-                    emptyBoard.append("X");
+                    emptyBoard.append("O");
                 } else if(i == 3 && j == 4) {
-                    emptyBoard.append("O");
-                } else if(i == 4 && j == 3) {
-                    emptyBoard.append("O");
-                } else if(i == 4 && j == 4) {
                     emptyBoard.append("X");
+                } else if(i == 4 && j == 3) {
+                    emptyBoard.append("X");
+                } else if(i == 4 && j == 4) {
+                    emptyBoard.append("O");
                 } else {
                     emptyBoard.append(" ");
                 }
@@ -111,7 +115,56 @@ public class ReversiBoard {
         return prettyBoard.toString();
     }
 
+
+    private boolean isValidMove(int ix, int iy, char player) {
+
+        if(!this.isEmptySpace(ix, iy)) {
+            return false;
+        }
+        // Check 9 surrounding spaces for token belonging to other player.
+        int xOffsetMin = - 1;
+        int xOffsetMax = + 1;
+        int yOffsetMin = - 1;
+        int yOffsetMax = + 1;
+
+        for(int xOffset = xOffsetMin; xOffset <= xOffsetMax; xOffset++) {
+            for (int yOffset = yOffsetMin; yOffset <= yOffsetMax; yOffset++) {
+                int i = ix + xOffset;
+                int j = iy + yOffset;
+
+                if(xOffset == 0 && yOffset == 0)  {
+                    continue;
+                }
+                if(i > 0 && i < 8 && j > 0 && j < 8) {
+                    char checkingPiece = this.getPiece(i, j);
+                    if (checkingPiece != player && checkingPiece != ' ') {
+                        // Found a piece belonging to the other player.
+                        i += xOffset;
+                        j += yOffset;
+                        while (checkingPiece != player && checkingPiece != ' ') {
+                            if (i < 0 || i > 8 || j < 0 || j > 8) {
+                                return false;
+                            }
+                            checkingPiece = this.getPiece(i, j);
+                            if (checkingPiece == player) {
+                                return true;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isEmptySpace(int ix, int iy) {
+        return this.getPiece(ix, iy) == ' ';
+    }
+
     public String toString() {
         return this.gameBoardStr;
     }
+
+
 }
