@@ -35,19 +35,30 @@ public class ReversiBoard {
                                    .orElse("");
     }
 
-    public char getPiece(int x, int y) {
+    private char getPiece(int letterIndex, int numIndex) {
 
-        int charIndex = (x * 9) + y;
+        int charIndex = (numIndex * 9) + letterIndex;
         return this.gameBoardStr.charAt(charIndex);
     }
 
-    public void setPiece(int x, int y, char piece) {
+    public char getPiece(String algebraicNotation) {
+        int letterIndex = algebraicNotation.charAt(0) - 'A';
+        int numberIndex = 8 - (algebraicNotation.charAt(1) - '0');
+        return getPiece(letterIndex, numberIndex);
+    }
+
+    private void setPiece(int letterIndex, int numIndex, char piece) {
         // Calculate the index of the char to replace
-        int charIndex = (x * 9) + y;
-//        this.gameBoardStr = this.gameBoardStr.substring(0, charIndex) + "X" + this.gameBoardStr.substring(charIndex + 1);
+        int charIndex = (numIndex * 9) + letterIndex;
         var sb = new StringBuilder(this.gameBoardStr);
         sb.setCharAt(charIndex, piece);
         this.gameBoardStr = sb.toString();
+    }
+
+    public void setPiece(String algebraicNotation, char piece) {
+        int letter = algebraicNotation.charAt(0) - 'A';
+        int number = 8 - (algebraicNotation.charAt(1) - '0');
+        setPiece(letter, number, piece);
     }
 
     public ReversiBoard() {
@@ -84,16 +95,19 @@ public class ReversiBoard {
     }
 
     public String prettyPrint() {
-        String header = "-_-_-_-_-_-_-_-_-";
+        String header = "_-A-B-C-D-E-F-G-H-";
+        int row = 8;
         StringBuilder prettyBoard = new StringBuilder(header + "\n");
         for(int i = 0; i < 8; i++) {
-            prettyBoard.append("|");
+            prettyBoard.append(row).append("|");
             for(int j = 0; j < 8; j++) {
-                prettyBoard.append(this.getPiece(i,j)).append("|");
+                prettyBoard.append(this.getPiece(j, i)).append("|");
             }
             prettyBoard.append("\n");
+            row --;
         }
         prettyBoard.append(header).append("\n");
+        System.out.println(prettyBoard);
         return prettyBoard.toString();
     }
 
