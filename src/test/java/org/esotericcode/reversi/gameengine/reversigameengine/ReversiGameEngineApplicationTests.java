@@ -18,14 +18,14 @@ class ReversiGameEngineApplicationTests {
         assertEquals('O', board.getPiece(3,4));
         assertEquals('O', board.getPiece(4,3));
         assertEquals('X', board.getPiece(4,4));
-        assert(board.toString().contains("|X|O|"));
-        assert(board.toString().contains("|O|X|"));
+        assert(board.prettyPrint().contains("|X|O|"));
+        assert(board.prettyPrint().contains("|O|X|"));
         System.out.println(board);
     }
     @Test
     void testEmptyBoardToString() {
         ReversiBoard board = new ReversiBoard();
-        String[] boardRowsStr = board.toString().split("\n");
+        String[] boardRowsStr = board.prettyPrint().split("\n");
         assertEquals("-_-_-_-_-_-_-_-_-",boardRowsStr[0]);
         assertEquals("| | | | | | | | |",boardRowsStr[1]);
         assertEquals("| | | | | | | | |",boardRowsStr[2]);
@@ -45,7 +45,7 @@ class ReversiGameEngineApplicationTests {
         board.setPiece(3,5,'X');
         assertEquals('X', board.getPiece(3,5));
 
-        String[] boardRowsStr = board.toString().split("\n");
+        String[] boardRowsStr = board.prettyPrint().split("\n");
         assertEquals("-_-_-_-_-_-_-_-_-",boardRowsStr[0]);
         assertEquals("| | | | | | | | |",boardRowsStr[1]);
         assertEquals("| | | | | | | | |",boardRowsStr[2]);

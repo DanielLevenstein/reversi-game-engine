@@ -9,10 +9,11 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Entity
 @Data
-//@Document
+@Document
 public class ReversiBoard {
     private @Id @GeneratedValue Long id;
 
@@ -82,7 +83,7 @@ public class ReversiBoard {
         return emptyBoard.toString();
     }
 
-    public String toString() {
+    public String prettyPrint() {
         String header = "-_-_-_-_-_-_-_-_-";
         StringBuilder prettyBoard = new StringBuilder(header + "\n");
         for(int i = 0; i < 8; i++) {
@@ -94,5 +95,9 @@ public class ReversiBoard {
         }
         prettyBoard.append(header).append("\n");
         return prettyBoard.toString();
+    }
+
+    public String toString() {
+        return this.gameBoardStr;
     }
 }
