@@ -9,11 +9,11 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
+//import org.springframework.data.mongodb.core.mapping.Document;
 
 @Entity
 @Data
-@Document
+//@Document
 public class ReversiBoard {
     private @Id @GeneratedValue Long id;
 
@@ -49,6 +49,16 @@ public class ReversiBoard {
 
     public boolean isValidMove(String algebraicNotation, char player) {
         return isValidMove(algebraicNotation.charAt(0) - 'A', 8 - (algebraicNotation.charAt(1) - '0'), player);
+    }
+
+    public boolean makeMove(String algebraicNotation, char player) {
+        if (!isValidMove(algebraicNotation.charAt(0) - 'A', 8 - (algebraicNotation.charAt(1) - '0'), player)) {
+            return false;
+        }
+        else {
+            makeMove(algebraicNotation.charAt(0) - 'A', 8 - (algebraicNotation.charAt(1) - '0'), player);
+            return true;
+        }
     }
 
     private void setPiece(int letterIndex, int numIndex, char piece) {
@@ -137,11 +147,11 @@ public class ReversiBoard {
                 }
                 if(i > 0 && i < 8 && j > 0 && j < 8) {
                     char checkingPiece = this.getPiece(i, j);
-                    if (checkingPiece != player && checkingPiece != ' ') {
+                    if (isOpponent(checkingPiece, player)) {
                         // Found a piece belonging to the other player.
                         i += xOffset;
                         j += yOffset;
-                        while (checkingPiece != player && checkingPiece != ' ') {
+                        while (isOpponent(checkingPiece, player)) {
                             if (i < 0 || i > 8 || j < 0 || j > 8) {
                                 return false;
                             }
@@ -158,8 +168,67 @@ public class ReversiBoard {
         return false;
     }
 
+
+
+    private void makeMove(int ix, int iy, char player) {
+        setPiece(ix, iy, player);
+        // Check 9 surrounding spaces for token belonging to other player.
+        int xOffsetMin = - 1;
+        int xOffsetMax = + 1;
+        int yOffsetMin = - 1;
+        int yOffsetMax = + 1;
+
+        for(int xOffset = xOffsetMin; xOffset <= xOffsetMax; xOffset++) {
+            for (int yOffset = yOffsetMin; yOffset <= yOffsetMax; yOffset++) {
+                int i = ix + xOffset;
+                int j = iy + yOffset;
+
+                if(xOffset == 0 && yOffset == 0)  {
+                    continue;
+                }
+                boolean flipRow = false;
+                if(onBoard(i,j)) {
+                    char checkingPiece = this.getPiece(i, j);
+                    if (isOpponent(checkingPiece, player)) {
+                        // Before flipping any pieces check of players piece is at the end of the row.
+                        do {
+                            checkingPiece = this.getPiece(i, j);
+                            i += xOffset;
+                            j += yOffset;
+                            if (this.getPiece(i, j) == player) {
+                                flipRow = true;
+                            }
+                        } while (isOpponent(checkingPiece, player) && onBoard(i, j));
+
+                    }
+                }
+                if (flipRow) {
+                    i = ix + xOffset;
+                    j = iy + yOffset;
+                    char checkingPiece = this.getPiece(i, j);
+                    while (isOpponent(checkingPiece, player)) {
+                        do {
+                            this.setPiece(i, j, player);
+                            i += xOffset;
+                            j += yOffset;
+                            checkingPiece = this.getPiece(i, j);
+                        } while (isOpponent(checkingPiece, player) && onBoard(i, j));
+                    }
+                }
+            }
+        }
+    }
+
     private boolean isEmptySpace(int ix, int iy) {
         return this.getPiece(ix, iy) == ' ';
+    }
+
+    private boolean isOpponent(char checkingPiece, char player) {
+        return checkingPiece != player && checkingPiece != ' ';
+    }
+
+    private boolean onBoard(int ix, int iy) {
+        return ix >= 0 && ix < 8 && iy >= 0 && iy < 8;
     }
 
     public String toString() {

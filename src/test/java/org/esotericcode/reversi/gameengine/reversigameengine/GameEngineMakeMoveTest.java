@@ -1,0 +1,133 @@
+package org.esotericcode.reversi.gameengine.reversigameengine;
+
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiBoard;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@SpringBootTest
+public class GameEngineMakeMoveTest {
+
+    @Test
+    void testMakeMoveE3(){
+        ReversiBoard board = new ReversiBoard();
+
+        board.makeMove("E3", 'X');
+
+        String[] boardRowsStr = board.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",boardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",boardRowsStr[2]);
+        assertEquals("6| | | | | | | | |",boardRowsStr[3]);
+        assertEquals("5| | | |O|X| | | |",boardRowsStr[4]);
+        assertEquals("4| | | |X|X| | | |",boardRowsStr[5]);
+        assertEquals("3| | | | |X| | | |",boardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",boardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",boardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
+    }
+
+    @Test
+    void testValidMoveD6(){
+        ReversiBoard board = new ReversiBoard();
+
+        assertTrue(board.makeMove("D6", 'X'));
+        board.setPiece("D6", 'X');
+
+        String[] boardRowsStr = board.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",boardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",boardRowsStr[2]);
+        assertEquals("6| | | |X| | | | |",boardRowsStr[3]);
+        assertEquals("5| | | |X|X| | | |",boardRowsStr[4]);
+        assertEquals("4| | | |X|O| | | |",boardRowsStr[5]);
+        assertEquals("3| | | | | | | | |",boardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",boardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",boardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
+    }
+
+    @Test
+    void testValidMoveC5(){
+        ReversiBoard board = new ReversiBoard();
+
+        assertTrue(board.makeMove("C5", 'X'));
+        board.setPiece("C5", 'X');
+
+        String[] boardRowsStr = board.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",boardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",boardRowsStr[2]);
+        assertEquals("6| | | | | | | | |",boardRowsStr[3]);
+        assertEquals("5| | |X|X|X| | | |",boardRowsStr[4]);
+        assertEquals("4| | | |X|O| | | |",boardRowsStr[5]);
+        assertEquals("3| | | | | | | | |",boardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",boardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",boardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
+    }
+
+    @Test
+    void testValidMoveF4(){
+        ReversiBoard board = new ReversiBoard();
+
+        assertTrue(board.makeMove("F4", 'X'));
+        board.setPiece("F4", 'X');
+
+        String[] boardRowsStr = board.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",boardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",boardRowsStr[2]);
+        assertEquals("6| | | | | | | | |",boardRowsStr[3]);
+        assertEquals("5| | | |O|X| | | |",boardRowsStr[4]);
+        assertEquals("4| | | |X|X|X| | |",boardRowsStr[5]);
+        assertEquals("3| | | | | | | | |",boardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",boardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",boardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
+    }
+    @Test
+    void testSecondMove(){
+        ReversiBoard board = new ReversiBoard();
+
+        board.makeMove("F4", 'X');
+        board.makeMove("F5", 'O');
+
+        String[] boardRowsStr = board.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",boardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",boardRowsStr[2]);
+        assertEquals("6| | | | | | | | |",boardRowsStr[3]);
+        assertEquals("5| | | |O|O|O| | |",boardRowsStr[4]);
+        assertEquals("4| | | |X|X|X| | |",boardRowsStr[5]);
+        assertEquals("3| | | | | | | | |",boardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",boardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",boardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
+    }
+
+
+    @Test
+    void testMoveThatFlipsMultipePieces(){
+        ReversiBoard board = new ReversiBoard();
+
+        board.makeMove("F4", 'X');
+        board.makeMove("F5", 'O');
+        board.makeMove("D6", 'X');
+
+        String[] boardRowsStr = board.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",boardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",boardRowsStr[2]);
+        assertEquals("6| | | |X| | | | |",boardRowsStr[3]);
+        assertEquals("5| | | |X|X|O| | |",boardRowsStr[4]);
+        assertEquals("4| | | |X|X|X| | |",boardRowsStr[5]);
+        assertEquals("3| | | | | | | | |",boardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",boardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",boardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
+    }
+
+}
