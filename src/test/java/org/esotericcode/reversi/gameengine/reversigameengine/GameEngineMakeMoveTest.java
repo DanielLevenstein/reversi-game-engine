@@ -11,6 +11,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GameEngineMakeMoveTest {
 
     @Test
+    void testInvalidMovesEdgeConditions(){
+        ReversiBoard board = new ReversiBoard();
+        assertFalse(board.makeMove("A8", 'X'));
+        assertFalse(board.makeMove("A1", 'X'));
+        assertFalse(board.makeMove("H8", 'X'));
+        assertFalse(board.makeMove("H1", 'X'));
+
+
+
+        String[] boardRowsStr = board.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",boardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",boardRowsStr[2]);
+        assertEquals("6| | | | | | | | |",boardRowsStr[3]);
+        assertEquals("5| | | |O|X| | | |",boardRowsStr[4]);
+        assertEquals("4| | | |X|O| | | |",boardRowsStr[5]);
+        assertEquals("3| | | | | | | | |",boardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",boardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",boardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
+    }
+
+    @Test
     void testMakeMoveE3(){
         ReversiBoard board = new ReversiBoard();
 
@@ -110,12 +133,34 @@ public class GameEngineMakeMoveTest {
 
 
     @Test
-    void testMoveThatFlipsMultipePieces(){
+    void testMoveThatFlipsMultiplePieces(){
         ReversiBoard board = new ReversiBoard();
 
         board.makeMove("F4", 'X');
         board.makeMove("F5", 'O');
         board.makeMove("D6", 'X');
+
+        String[] boardRowsStr = board.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",boardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",boardRowsStr[2]);
+        assertEquals("6| | | |X| | | | |",boardRowsStr[3]);
+        assertEquals("5| | | |X|X|O| | |",boardRowsStr[4]);
+        assertEquals("4| | | |X|X|X| | |",boardRowsStr[5]);
+        assertEquals("3| | | | | | | | |",boardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",boardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",boardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
+    }
+
+    @Test
+    void testInvalidMovesNoPieceAtEndOfRow(){
+        ReversiBoard board = new ReversiBoard();
+        board.makeMove("F4", 'X');
+        board.makeMove("F5", 'O');
+        board.makeMove("D6", 'X');
+
+        assertFalse(board.isValidMove("E6", 'O'));
 
         String[] boardRowsStr = board.prettyPrint().split("\n");
         assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);

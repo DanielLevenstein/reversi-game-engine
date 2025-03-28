@@ -145,22 +145,16 @@ public class ReversiBoard {
                 if(xOffset == 0 && yOffset == 0)  {
                     continue;
                 }
-                if(i > 0 && i < 8 && j > 0 && j < 8) {
-                    char checkingPiece = this.getPiece(i, j);
-                    if (isOpponent(checkingPiece, player)) {
+                if(onBoard(i,j)) {
+                    char checkingColor = this.getPiece(i, j);
+                    if (isOpponent(checkingColor, player)) {
                         // Found a piece belonging to the other player.
                         i += xOffset;
                         j += yOffset;
-                        while (isOpponent(checkingPiece, player)) {
-                            if (i < 0 || i > 8 || j < 0 || j > 8) {
-                                return false;
-                            }
-                            checkingPiece = this.getPiece(i, j);
-                            if (checkingPiece == player) {
-                                return true;
-                            }
+                        while (onBoard(i,j) &&  isOpponent(checkingColor, player)) {
+                            checkingColor = this.getPiece(i, j);
                         }
-
+                        return checkingColor == player;
                     }
                 }
             }
@@ -188,17 +182,17 @@ public class ReversiBoard {
                 }
                 boolean flipRow = false;
                 if(onBoard(i,j)) {
-                    char checkingPiece = this.getPiece(i, j);
-                    if (isOpponent(checkingPiece, player)) {
+                    char checkingColor = this.getPiece(i, j);
+                    if (isOpponent(checkingColor, player)) {
                         // Before flipping any pieces check of players piece is at the end of the row.
                         do {
-                            checkingPiece = this.getPiece(i, j);
+                            checkingColor = this.getPiece(i, j);
                             i += xOffset;
                             j += yOffset;
                             if (this.getPiece(i, j) == player) {
                                 flipRow = true;
                             }
-                        } while (isOpponent(checkingPiece, player) && onBoard(i, j));
+                        } while (isOpponent(checkingColor, player) && onBoard(i, j));
 
                     }
                 }
