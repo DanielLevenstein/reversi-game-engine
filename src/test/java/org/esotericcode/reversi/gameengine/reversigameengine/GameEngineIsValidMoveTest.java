@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class GameEngineValidMovesTest {
+public class GameEngineIsValidMoveTest {
     @Test
     void testInvalidMovesEdgeConditions(){
         ReversiBoard board = new ReversiBoard();
@@ -34,6 +34,7 @@ public class GameEngineValidMovesTest {
         assertEquals("1|X| | | | | | |X|",boardRowsStr[8]);
         assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
     }
+
     @Test
     void testValidMoveE3(){
         ReversiBoard board = new ReversiBoard();

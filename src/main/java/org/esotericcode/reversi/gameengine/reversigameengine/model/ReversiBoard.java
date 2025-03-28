@@ -3,7 +3,11 @@ package org.esotericcode.reversi.gameengine.reversigameengine.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
+
+
 import java.util.Arrays;
+import java.util.HashSet;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -36,9 +40,15 @@ public class ReversiBoard {
     }
 
     private char getPiece(int letterIndex, int numIndex) {
-
         int charIndex = (numIndex * 9) + letterIndex;
         return this.gameBoardStr.charAt(charIndex);
+    }
+
+
+    private String getPieceAlgebra(int letterIndex, int numIndex) {
+        int invertedNum = 8 - numIndex;
+        return (char) ('A' + letterIndex) + ""
+                + (char) ( '0' + invertedNum);
     }
 
     public char getPiece(String algebraicNotation) {
@@ -149,9 +159,9 @@ public class ReversiBoard {
                     char checkingColor = this.getPiece(i, j);
                     if (isOpponent(checkingColor, player)) {
                         // Found a piece belonging to the other player.
-                        i += xOffset;
-                        j += yOffset;
                         while (onBoard(i,j) &&  isOpponent(checkingColor, player)) {
+                            i += xOffset;
+                            j += yOffset;
                             checkingColor = this.getPiece(i, j);
                         }
                         return checkingColor == player;
@@ -162,6 +172,17 @@ public class ReversiBoard {
         return false;
     }
 
+    public HashSet<String> getValidMoves(char player){
+        HashSet<String> validMoves = new HashSet<>();
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if(isValidMove(i, j, player)){
+                    validMoves.add(getPieceAlgebra(i, j));
+                }
+            }
+        }
+        return validMoves;
+    }
 
 
     private void makeMove(int ix, int iy, char player) {
