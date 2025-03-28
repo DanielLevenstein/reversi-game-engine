@@ -212,6 +212,7 @@ public class ReversiBoard {
                             j += yOffset;
                             if (this.getPiece(i, j) == player) {
                                 flipRow = true;
+                                break;
                             }
                         } while (isOpponent(checkingColor, player) && onBoard(i, j));
 

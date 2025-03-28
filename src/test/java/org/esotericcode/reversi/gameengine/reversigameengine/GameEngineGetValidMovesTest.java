@@ -16,7 +16,7 @@ public class GameEngineGetValidMovesTest {
     void testGetValidMovesAtGameStart(){
         ReversiBoard board = new ReversiBoard();
 
-        Set validMoves = board.getValidMoves('X');
+        Set<String> validMoves = board.getValidMoves('X');
 
         assertTrue(validMoves.contains("E3"));
         assertTrue(validMoves.contains("F4"));
