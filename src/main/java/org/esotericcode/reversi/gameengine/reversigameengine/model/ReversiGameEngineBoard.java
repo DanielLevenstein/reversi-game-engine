@@ -150,7 +150,9 @@ public class ReversiGameEngineBoard {
                             j += yOffset;
                             checkingColor = this.getPiece(i, j);
                         }
-                        return checkingColor == player;
+                        if (checkingColor == player) {
+                            return true;
+                        };
                     }
                 }
             }

@@ -114,4 +114,32 @@ public class GameEngineIsValidMoveTest {
         assertEquals("1| | | | | | | | |",boardRowsStr[8]);
         assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
     }
+
+    @Test
+    void ValidMoveD6() {
+        String boardRowsStr =
+                "        \n" +
+                "        \n" +
+                "        \n" +
+                "  XXX   \n" +
+                "   XX   \n" +
+                "   OX   \n" +
+                "        \n" +
+                "        \n";
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard(boardRowsStr);
+
+        assertTrue(board.isValidMove("D6", 'O'));
+        board.makeMove("D6", 'O');
+        String[] prettyBoardRowsStr = board.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",prettyBoardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",prettyBoardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",prettyBoardRowsStr[2]);
+        assertEquals("6| | | |O| | | | |",prettyBoardRowsStr[3]);
+        assertEquals("5| | |X|O|X| | | |",prettyBoardRowsStr[4]);
+        assertEquals("4| | | |O|X| | | |",prettyBoardRowsStr[5]);
+        assertEquals("3| | | |O|X| | | |",prettyBoardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",prettyBoardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",prettyBoardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",prettyBoardRowsStr[9]);
+    }
 }
