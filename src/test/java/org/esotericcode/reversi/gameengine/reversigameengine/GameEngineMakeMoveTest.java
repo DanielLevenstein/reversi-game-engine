@@ -1,6 +1,6 @@
 package org.esotericcode.reversi.gameengine.reversigameengine;
 
-import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiBoard;
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiGameEngineBoard;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,7 +12,7 @@ public class GameEngineMakeMoveTest {
 
     @Test
     void testInvalidMovesEdgeConditions(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
         assertFalse(board.makeMove("A8", 'X'));
         assertFalse(board.makeMove("A1", 'X'));
         assertFalse(board.makeMove("H8", 'X'));
@@ -35,7 +35,7 @@ public class GameEngineMakeMoveTest {
 
     @Test
     void testMakeMoveE3(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         board.makeMove("E3", 'X');
 
@@ -54,7 +54,7 @@ public class GameEngineMakeMoveTest {
 
     @Test
     void testValidMoveD6(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         assertTrue(board.makeMove("D6", 'X'));
         board.setPiece("D6", 'X');
@@ -74,7 +74,7 @@ public class GameEngineMakeMoveTest {
 
     @Test
     void testValidMoveC5(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         assertTrue(board.makeMove("C5", 'X'));
         board.setPiece("C5", 'X');
@@ -94,7 +94,7 @@ public class GameEngineMakeMoveTest {
 
     @Test
     void testValidMoveF4(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         assertTrue(board.makeMove("F4", 'X'));
         board.setPiece("F4", 'X');
@@ -113,7 +113,7 @@ public class GameEngineMakeMoveTest {
     }
     @Test
     void testSecondMove(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         board.makeMove("F4", 'X');
         board.makeMove("F5", 'O');
@@ -134,7 +134,7 @@ public class GameEngineMakeMoveTest {
 
     @Test
     void testMoveThatFlipsMultiplePieces(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         board.makeMove("F4", 'X');
         board.makeMove("F5", 'O');
@@ -155,7 +155,7 @@ public class GameEngineMakeMoveTest {
 
     @Test
     void testInvalidMovesNoPieceAtEndOfRow(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
         board.makeMove("F4", 'X');
         board.makeMove("F5", 'O');
         board.makeMove("D6", 'X');

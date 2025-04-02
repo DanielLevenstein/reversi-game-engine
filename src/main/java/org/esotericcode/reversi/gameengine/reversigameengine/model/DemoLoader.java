@@ -14,24 +14,7 @@ public class DemoLoader implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... strings) throws Exception {
-        // Create an 8x8 array with only middle spaces occupied.
-        var gameBoardVals = new char[8][8];
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (i == 3 && j == 3) {
-                    gameBoardVals[i][j] = 'X';
-                } else if (i == 3 && j == 4) {
-                    gameBoardVals[i][j] = 'O';
-                } else if (i == 4 && j == 3) {
-                    gameBoardVals[i][j] = 'O';
-                } else if (i == 4 && j == 4) {
-                    gameBoardVals[i][j] = 'X';
-                } else {
-                    gameBoardVals[i][j] = ' ';
-                }
-            }
-        }
-        this.repository.save(new ReversiBoard(gameBoardVals));
+    public void run(String... strings){
+        this.repository.save(new ReversiBoard(ReversiGameEngineBoard.getEmptyBoard()));
     }
 }

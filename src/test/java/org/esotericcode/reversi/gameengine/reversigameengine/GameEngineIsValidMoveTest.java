@@ -1,6 +1,6 @@
 package org.esotericcode.reversi.gameengine.reversigameengine;
 
-import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiBoard;
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiGameEngineBoard;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GameEngineIsValidMoveTest {
     @Test
     void testInvalidMovesEdgeConditions(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
         assertFalse(board.isValidMove("A8", 'X'));
         assertFalse(board.isValidMove("A1", 'X'));
         assertFalse(board.isValidMove("H8", 'X'));
@@ -37,7 +37,7 @@ public class GameEngineIsValidMoveTest {
 
     @Test
     void testValidMoveE3(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         assertTrue(board.isValidMove("E3", 'X'));
         board.setPiece("E3", 'X');
@@ -57,7 +57,7 @@ public class GameEngineIsValidMoveTest {
 
     @Test
     void testValidMoveD6(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         assertTrue(board.isValidMove("D6", 'X'));
         board.setPiece("D6", 'X');
@@ -77,7 +77,7 @@ public class GameEngineIsValidMoveTest {
 
     @Test
     void testValidMoveC5(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         assertTrue(board.isValidMove("C5", 'X'));
         board.setPiece("C5", 'X');
@@ -97,7 +97,7 @@ public class GameEngineIsValidMoveTest {
 
     @Test
     void testValidMoveF4(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         assertTrue(board.isValidMove("F4", 'X'));
         board.setPiece("F4", 'X');
@@ -114,5 +114,4 @@ public class GameEngineIsValidMoveTest {
         assertEquals("1| | | | | | | | |",boardRowsStr[8]);
         assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
     }
-
 }

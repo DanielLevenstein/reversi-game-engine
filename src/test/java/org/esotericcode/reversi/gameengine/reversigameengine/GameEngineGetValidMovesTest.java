@@ -1,6 +1,6 @@
 package org.esotericcode.reversi.gameengine.reversigameengine;
 
-import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiBoard;
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiGameEngineBoard;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -14,7 +14,7 @@ public class GameEngineGetValidMovesTest {
 
     @Test
     void testGetValidMovesAtGameStart(){
-        ReversiBoard board = new ReversiBoard();
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
         Set<String> validMoves = board.getValidMoves('X');
 
