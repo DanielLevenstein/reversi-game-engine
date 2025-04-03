@@ -16,10 +16,16 @@ public class ReversiGameEngineApplication implements CommandLineRunner {
     public final GameBoardRepository repository;
 
     public static void main(String[] args) {
+        if (args.length > 0 && args[0].equals("--command-line")) {
+            commandLineGame(args);
+        } else {
+            SpringApplication.run(ReversiGameEngineApplication.class, args);
+        }
+    }
+
+    public static void commandLineGame(String[] args) {
         char currentPlayer = 'X';
-
         ReversiGameEngineBoard board = new ReversiGameEngineBoard();
-
         while (true) {
             System.out.println("CurrentPlayer=" + currentPlayer);
             board.prettyPrint();
@@ -32,8 +38,6 @@ public class ReversiGameEngineApplication implements CommandLineRunner {
             } else {
                 System.out.println("Enter a valid move or enter 'q' to quit: " + algebraicNotation);
             }
-
-//        SpringApplication.run(ReversiGameEngineApplication.class, args);
         }
     }
 
