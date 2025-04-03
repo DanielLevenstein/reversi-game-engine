@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Entity
 @Data
-//@Document
+
 public class ReversiBoard {
     private @Id
     @GeneratedValue Long id;
@@ -26,5 +26,9 @@ public class ReversiBoard {
 
     public ReversiBoard() {
 
+    }
+
+    public ReversiGameEngineBoard getBoard() {
+        return gameBoardStr == null ? null : new ReversiGameEngineBoard(gameBoardStr);
     }
 }

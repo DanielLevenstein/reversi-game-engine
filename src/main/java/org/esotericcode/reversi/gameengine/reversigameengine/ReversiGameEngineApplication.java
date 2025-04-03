@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReversiGameEngineApplication implements CommandLineRunner {
 
-    private final GameBoardRepository repository;
+    public final GameBoardRepository repository;
 
     public static void main(String[] args) {
         char currentPlayer = 'X';
