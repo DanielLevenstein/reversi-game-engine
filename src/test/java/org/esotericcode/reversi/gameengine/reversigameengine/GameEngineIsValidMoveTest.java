@@ -1,13 +1,12 @@
 package org.esotericcode.reversi.gameengine.reversigameengine;
 
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ImmutableReversiBoard;
 import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiGameEngineBoard;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 public class GameEngineIsValidMoveTest {
     @Test
     void testInvalidMovesEdgeConditions(){
@@ -39,7 +38,10 @@ public class GameEngineIsValidMoveTest {
     void testValidMoveE3(){
         ReversiGameEngineBoard board = new ReversiGameEngineBoard();
 
+        ImmutableReversiBoard immutableReversiBoard = new ImmutableReversiBoard(board.getGameBoardStr());
         assertTrue(board.isValidMove("E3", 'X'));
+        assertTrue(immutableReversiBoard.isValidMove("E3", 'X'));
+
         board.setPiece("E3", 'X');
 
         String[] boardRowsStr = board.prettyPrint().split("\n");

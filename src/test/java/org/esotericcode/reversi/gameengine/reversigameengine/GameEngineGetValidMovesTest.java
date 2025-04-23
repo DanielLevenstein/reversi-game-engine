@@ -1,15 +1,14 @@
 package org.esotericcode.reversi.gameengine.reversigameengine;
 
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ImmutableReversiBoard;
 import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiGameEngineBoard;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 public class GameEngineGetValidMovesTest {
 
     @Test
@@ -22,6 +21,13 @@ public class GameEngineGetValidMovesTest {
         assertTrue(validMoves.contains("F4"));
         assertTrue(validMoves.contains("C5"));
         assertTrue(validMoves.contains("D6"));
+        ImmutableReversiBoard immutableReversiBoard = new ImmutableReversiBoard(board.getGameBoardStr());
+        var immutability = immutableReversiBoard.getValidMoves('X').toList();
+        System.out.println(immutability);
+        assertTrue(immutability.contains("E3"));
+        assertTrue(immutability.contains("F4"));
+        assertTrue(immutability.contains("C5"));
+        assertTrue(immutability.contains("D6"));
 
         String[] boardRowsStr = board.prettyPrint().split("\n");
         assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
