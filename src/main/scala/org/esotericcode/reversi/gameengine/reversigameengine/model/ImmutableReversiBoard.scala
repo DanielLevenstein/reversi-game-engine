@@ -9,7 +9,7 @@ object ImmutableReversiBoard {
 
   def getPieceAlgebra(letterIndex: Int, numIndex: Int): String = {
     val invertedNum = 8 - numIndex;
-    ('A' + letterIndex).asInstanceOf[Char]+"" + ( '0' + invertedNum).asInstanceOf[Char]+"";
+    ('A' + letterIndex).asInstanceOf[Char].toString + ( '0' + invertedNum).asInstanceOf[Char].toString;
   }
 }
 
