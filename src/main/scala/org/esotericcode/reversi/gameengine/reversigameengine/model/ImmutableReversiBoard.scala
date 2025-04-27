@@ -67,7 +67,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
     val validMoves = for {
       i <- 0 to 7
       j <- 0 to 7
-      if (isValidMove(i, j, player))
+      if isValidMove(i, j, player)
     }
     yield { getPieceAlgebra(i, j)}
     validMoves
