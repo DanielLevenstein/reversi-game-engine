@@ -1,6 +1,6 @@
 package org.esotericcode.reversi.gameengine.reversigameengine.model
 
-import org.esotericcode.reversi.gameengine.reversigameengine.model.ImmutableReversiBoard.{getPieceAlgebra, onBoard};
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ImmutableReversiBoard.{getPieceAlgebra, isOpponent, onBoard};
 object ImmutableReversiBoard {
 
   private def onBoard(x: Int, y: Int) = {
@@ -11,13 +11,13 @@ object ImmutableReversiBoard {
     val invertedNum = 8 - numIndex;
     ('A' + letterIndex).asInstanceOf[Char].toString + ( '0' + invertedNum).asInstanceOf[Char].toString;
   }
+  def isOpponent(neighborColor: Char, player: Char): Boolean = neighborColor != player && neighborColor != ' '
 }
 
 class ImmutableReversiBoard(val gameBoard: String) {
 
   def getPiece(letterIndex: Int, numIndex: Int): Char = {
     val charIndex = (numIndex * 9) + letterIndex;
-//    System.out.println(numIndex + "," + letterIndex + ":" + charIndex);
     gameBoard.charAt(charIndex);
   }
 
@@ -28,9 +28,6 @@ class ImmutableReversiBoard(val gameBoard: String) {
   def isValidMove(algebraicNotation: String, player: Char): Boolean = {
     isValidMove(algebraicNotation.charAt(0) - 'A', 8 - (algebraicNotation.charAt(1) - '0'), player);
   }
-
-  def isOpponent(neighborColor: Char, player: Char): Boolean = neighborColor != player && neighborColor != ' '
-
   private def isValidMove(ix: Int, iy:Int, player: Char): Boolean = {
 
     if (!this.isEmptySpace(ix, iy)) {
