@@ -5,15 +5,15 @@ package org.esotericcode.reversi.gameengine.reversigameengine.rest
  * This is a very rough draft of the design and will be updated as we make progress
  *
  * Methods to implement:
- * POST getBoard -> database.getBoard(gameID)
- * POST getValidMoves -> board.getValidMoves(gameID,player)
- * POST makeMove -> board.makeMove() -> saveBoardToDatabase(gameID, nextPlayer)
- * GET currentTurn database.getCurrentTurn(gameID)
- * GET isValidMove -> board.isValidMove(gameID, player)
- * GET getLastMove -> database.getLastMove(gameID)
- * GET getAIPlayer -> database.getAIPlayer(gameID)
- * POST getMoveFromAI -> minMaxTree.getMoveFromAI(gameID, player)
- * GET isAIEnabled -> database.isAIEnabled()
+ * GET /games/{gameId}/board -> database.getBoard(gameID)
+ * GET /games/{gameId}/valid-moves?player=val -> board.getValidMoves(gameID,player)
+ * POST /games/{gameId}/move -> board.makeMove() -> saveBoardToDatabase(gameID, nextPlayer)
+ * GET /games/{gameId}/current-turn database.getCurrentTurn(gameID)
+ * GET /games/is-valid-move -> board.isValidMove(gameID, player)
+ * GET /games/{gameId}/last-move -> database.getLastMove(gameID)
+ * GET /games/{gameId}/ai-player -> database.getAIPlayer(gameID)
+ * POST /games/{gameId}/ai-move -> minMaxTree.getMoveFromAI(gameID, player)
+ * GET /games/{gameId}/ai-enabled -> database.isAIEnabled()
  *
  * I don't know if I am getting the terminology right.
  * Please correct me if I am wrong.
