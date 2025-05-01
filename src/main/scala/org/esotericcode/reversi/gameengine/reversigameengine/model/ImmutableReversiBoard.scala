@@ -13,6 +13,11 @@ object ImmutableReversiBoard {
   }
   def isOpponent(neighborColor: Char, player: Char): Boolean = neighborColor != player && neighborColor != ' '
 
+  def getOpponent( player: Char): Char =
+    if (player == 'X') 'O'
+    else 'X';
+
+
   def getEmptyBoard: ImmutableReversiBoard = {
       val emptyBoard = new StringBuilder
       for (i <- 0 until 8) {
