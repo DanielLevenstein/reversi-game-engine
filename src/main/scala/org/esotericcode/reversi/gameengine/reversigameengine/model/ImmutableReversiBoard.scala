@@ -134,4 +134,21 @@ class ImmutableReversiBoard(val gameBoard: String) {
   }
 
   override def toString: String = this.gameBoard
+
+  def prettyPrint: String = {
+    val header = "_-A-B-C-D-E-F-G-H-"
+    var row = 8
+    val prettyBoard = new StringBuilder(header + "\n")
+    for (i <- 0 until 8) {
+      prettyBoard.append(row).append("|")
+      for (j <- 0 until 8) {
+        prettyBoard.append(this.getPiece(j, i)).append("|")
+      }
+      prettyBoard.append("\n")
+      row -= 1
+    }
+    prettyBoard.append(header).append("\n")
+    System.out.println(prettyBoard)
+    prettyBoard.toString
+  }
 }

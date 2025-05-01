@@ -56,7 +56,18 @@ public class GameEngineMakeMoveTest {
         ReversiGameEngineBoard board = new ReversiGameEngineBoard();
         ImmutableReversiBoard immutableReversiBoard = new ImmutableReversiBoard(board.getGameBoardStr());
         var newBoard = immutableReversiBoard.makeMove("E3", 'X');
-        System.out.println(newBoard);
+
+        String[] boardRowsStr = newBoard.prettyPrint().split("\n");
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[0]);
+        assertEquals("8| | | | | | | | |",boardRowsStr[1]);
+        assertEquals("7| | | | | | | | |",boardRowsStr[2]);
+        assertEquals("6| | | | | | | | |",boardRowsStr[3]);
+        assertEquals("5| | | |O|X| | | |",boardRowsStr[4]);
+        assertEquals("4| | | |X|X| | | |",boardRowsStr[5]);
+        assertEquals("3| | | | |X| | | |",boardRowsStr[6]);
+        assertEquals("2| | | | | | | | |",boardRowsStr[7]);
+        assertEquals("1| | | | | | | | |",boardRowsStr[8]);
+        assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
     }
     @Test
     void testValidMoveD6(){
