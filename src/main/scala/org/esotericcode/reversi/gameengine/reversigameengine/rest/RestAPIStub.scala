@@ -13,6 +13,7 @@ package org.esotericcode.reversi.gameengine.reversigameengine.rest
  * GET getLastMove -> database.getLastMove(gameID)
  * GET getAIPlayer -> database.getAIPlayer(gameID)
  * POST getMoveFromAI -> minMaxTree.getMoveFromAI(gameID, player)
+ * GET isAIEnabled -> database.isAIEnabled()
  *
  * I don't know if I am getting the terminology right.
  * Please correct me if I am wrong.
@@ -24,6 +25,7 @@ package org.esotericcode.reversi.gameengine.reversigameengine.rest
  * currentPlayer : Char
  * aiPlayer : Char
  * lastMove : String
+ * isAIEnabled : Boolean
  */
 class RestAPIStub {
 
