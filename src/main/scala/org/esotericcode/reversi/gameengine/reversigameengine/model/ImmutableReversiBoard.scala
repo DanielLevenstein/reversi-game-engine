@@ -12,15 +12,34 @@ object ImmutableReversiBoard {
     ('A' + letterIndex).asInstanceOf[Char].toString + ( '0' + invertedNum).asInstanceOf[Char].toString
   }
   def isOpponent(neighborColor: Char, player: Char): Boolean = neighborColor != player && neighborColor != ' '
+
+  def getEmptyBoard: ImmutableReversiBoard = {
+      val emptyBoard = new StringBuilder
+      for (i <- 0 until 8) {
+        for (j <- 0 until 8) {
+          if (i == 3 && j == 3) emptyBoard.append("O")
+          else if (i == 3 && j == 4) emptyBoard.append("X")
+          else if (i == 4 && j == 3) emptyBoard.append("X")
+          else if (i == 4 && j == 4) emptyBoard.append("O")
+          else emptyBoard.append(" ")
+        }
+        emptyBoard.append("\n")
+      }
+      new ImmutableReversiBoard(emptyBoard.toString);
+  }
 }
+
+
 
 class ImmutableReversiBoard(val gameBoard: String) {
 
+  // TODO: Remove /n character from board strings and change constant to 8
   def getPiece(letterIndex: Int, numIndex: Int): Char = {
     val charIndex = (numIndex * 9) + letterIndex
     gameBoard.charAt(charIndex)
   }
 
+  // TODO: Remove /n character from board strings and change constant to 8
   def setPiece(boardString: StringBuilder, letterIndex: Int, numIndex: Int, player: Char): StringBuilder = {
     val charIndex = (numIndex * 9) + letterIndex
     boardString.setCharAt(charIndex, player)
@@ -50,7 +69,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
 
     var isMove = false
     neighbor.iterator.foreach { case (x, y) =>
-      var neighborColor = this.getPiece(x, y)
+      val neighborColor = this.getPiece(x, y)
       if (isOpponent(neighborColor, player)) {
         val xOffset = x - ix
         val yOffset = y - iy
