@@ -1,5 +1,6 @@
 package org.esotericcode.reversi.gameengine.reversigameengine;
 
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ImmutableReversiBoard;
 import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiGameEngineBoard;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +51,13 @@ public class GameEngineMakeMoveTest {
         assertEquals("_-A-B-C-D-E-F-G-H-",boardRowsStr[9]);
     }
 
+    @Test
+    void testImmutableMakeMoveE3(){
+        ReversiGameEngineBoard board = new ReversiGameEngineBoard();
+        ImmutableReversiBoard immutableReversiBoard = new ImmutableReversiBoard(board.getGameBoardStr());
+        var newBoard = immutableReversiBoard.makeMove("E3", 'X');
+        System.out.println(newBoard);
+    }
     @Test
     void testValidMoveD6(){
         ReversiGameEngineBoard board = new ReversiGameEngineBoard();
