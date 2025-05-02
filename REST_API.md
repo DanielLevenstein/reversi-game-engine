@@ -16,6 +16,8 @@
 API Notes:
 The game board is stored as a single string with \n as the delimiter separating rows.
 The getValidMoves method current returns a list of String values using the chess algebra notation. 
+Player and turn variables are currently stored as 'X' and 'O' values 
+    with 'X' mapping to black pieces and 'O' mapping to white pieces and empty squares denoted by ' ' char. 
 
 I don't know if I am getting the terminology right.
 Please correct me if I am wrong.
