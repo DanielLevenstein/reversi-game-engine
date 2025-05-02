@@ -13,6 +13,10 @@
 * POST /games/{gameId}/ai-move -> minMaxTree.getMoveFromAI(gameID, player)
 * GET /games/{gameId}/ai-enabled -> database.isAIEnabled()
 
+API Notes:
+The game board is stored as a single string with \n as the delimiter separating rows.
+The getValidMoves method current returns a list of String values using the chess algebra notation. 
+
 I don't know if I am getting the terminology right.
 Please correct me if I am wrong.
 
