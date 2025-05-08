@@ -1,6 +1,6 @@
 package org.esotericcode.reversi.gameengine.reversigameengine.model
 
-import org.esotericcode.reversi.gameengine.reversigameengine.model.ImmutableReversiBoard.{getPieceAlgebra, isOpponent, onBoard}
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ImmutableReversiBoard.{getOpponent, getPieceAlgebra, isOpponent, onBoard}
 object ImmutableReversiBoard {
 
   private def onBoard(x: Int, y: Int) = {
@@ -15,7 +15,7 @@ object ImmutableReversiBoard {
 
   def getOpponent( player: Char): Char =
     if (player == 'X') 'O'
-    else 'X';
+    else 'X'
 
 
   def getEmptyBoard: ImmutableReversiBoard = {
@@ -30,7 +30,7 @@ object ImmutableReversiBoard {
         }
         emptyBoard.append("\n")
       }
-      new ImmutableReversiBoard(emptyBoard.toString);
+      new ImmutableReversiBoard(emptyBoard.toString)
   }
 }
 
@@ -89,7 +89,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
   private def isRowBounded(player: Char, x: Int, y: Int, xOffset: Int, yOffset: Int): Boolean = {
     var xVal = x
     var yVal = y
-    var currentColor = this.getPiece(xVal, yVal);
+    var currentColor = this.getPiece(xVal, yVal)
     while (onBoard(xVal, yVal) && isOpponent(currentColor, player)) {
       xVal = xVal + xOffset
       yVal = yVal + yOffset
@@ -101,7 +101,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
   private def flipRow(boardString: StringBuilder, player: Char, x: Int, y: Int, xOffset: Int, yOffset: Int): StringBuilder = {
     var xVal = x
     var yVal = y
-    var currentColor = this.getPiece(xVal, yVal);
+    var currentColor = this.getPiece(xVal, yVal)
     this.setPiece(boardString, x, y, player)
     while (onBoard(xVal, yVal) && isOpponent(currentColor, player)) {
       xVal = xVal + xOffset
@@ -113,6 +113,10 @@ class ImmutableReversiBoard(val gameBoard: String) {
     boardString
   }
 
+  // Simple heuristic that trys to maximize the number of moves in the future.
+  def heuristicCountMoves(player: Char): Double = {
+    getValidMoves(player).size - getValidMoves(getOpponent(player)).size
+  }
 
   def getValidMoves(player: Char): Seq[String] = {
     val validMoves = for {
@@ -128,7 +132,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
   def makeMove(algebra: String, player: Char): ImmutableReversiBoard = {
     val ix = algebra.charAt(0) - 'A'
     val iy = 8 - (algebra.charAt(1) - '0')
-    var boardStr2: StringBuilder = new StringBuilder(gameBoard);
+    var boardStr2: StringBuilder = new StringBuilder(gameBoard)
 
     if(!isValidMove(getPieceAlgebra(ix, iy), player)) {
       return null
@@ -150,7 +154,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
         val yOffset = y - iy
 
         if(isRowBounded(player, x, y, xOffset, yOffset)) {
-          boardStr2 = flipRow(boardStr2, player, x, y, xOffset, yOffset);
+          boardStr2 = flipRow(boardStr2, player, x, y, xOffset, yOffset)
         }
       }
     }
