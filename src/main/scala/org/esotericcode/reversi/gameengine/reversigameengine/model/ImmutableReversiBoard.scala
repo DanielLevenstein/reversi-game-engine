@@ -40,8 +40,12 @@ class ImmutableReversiBoard(val gameBoard: String) {
 
   // TODO: Remove /n character from board strings and change constant to 8
   def getPiece(letterIndex: Int, numIndex: Int): Char = {
-    val charIndex = (numIndex * 9) + letterIndex
-    gameBoard.charAt(charIndex)
+    if(isOnBoard(letterIndex, numIndex)) {
+      val charIndex = (numIndex * 9) + letterIndex
+      gameBoard.charAt(charIndex)
+    } else {
+      throw new IllegalStateException("Attempting to retrieve invalid piece"+letterIndex+","+numIndex)
+    }
   }
 
   // TODO: Remove /n character from board strings and change constant to 8
@@ -63,17 +67,10 @@ class ImmutableReversiBoard(val gameBoard: String) {
     if (!this.isEmptySpace(ix, iy)) {
       return false
     }
-    // Check 9 surrounding spaces for token belonging to other player.
-    val neighbor = for {
-      x <- (ix - 1) to (ix + 1)
-      y <- (iy - 1) to (iy + 1)
-      if x >= 0 && x < 8 && y >= 0 && y < 8 && (x != ix || y != iy)
-    } yield {
-      (x, y)
-    }
+    val neighbors = getNeighbors(ix, iy)
 
     var isMove = false
-    neighbor.iterator.foreach { case (x, y) =>
+    neighbors.iterator.foreach { case (x, y) =>
       val neighborColor = this.getPiece(x, y)
       if (isOpponent(neighborColor, player)) {
         val xOffset = x - ix
@@ -86,6 +83,9 @@ class ImmutableReversiBoard(val gameBoard: String) {
     isMove
   }
 
+  private def isOnBoard(x: Int, y: Int) =
+    x >= 0 && x < 8 && y >= 0 && y < 8
+
   private def isRowBounded(player: Char, x: Int, y: Int, xOffset: Int, yOffset: Int): Boolean = {
     var xVal = x
     var yVal = y
@@ -93,9 +93,23 @@ class ImmutableReversiBoard(val gameBoard: String) {
     while (onBoard(xVal, yVal) && isOpponent(currentColor, player)) {
       xVal = xVal + xOffset
       yVal = yVal + yOffset
-      currentColor = this.getPiece(xVal, yVal)
+      if(isOnBoard(xVal,yVal)){
+        currentColor = this.getPiece(xVal, yVal)
+      }
     }
     currentColor == player
+  }
+
+  private def getNeighbors(ix: Int, iy: Int): IndexedSeq[(Int, Int)] = {
+    // Check 9 surrounding spaces for token belonging to other player.
+    val neighbor = for {
+      x <- (ix - 1) to (ix + 1)
+      y <- (iy - 1) to (iy + 1)
+      if isOnBoard(x, y) && (x != ix || y != iy)
+    } yield {
+      (x, y)
+    }
+    neighbor
   }
 
   private def flipRow(boardString: StringBuilder, player: Char, x: Int, y: Int, xOffset: Int, yOffset: Int): StringBuilder = {
@@ -139,13 +153,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
     }
     setPiece(boardStr2, ix, iy, player)
     // Check 9 surrounding spaces for token belonging to other player.
-    val neighbor = for {
-      x <- (ix - 1) to (ix + 1)
-      y <- (iy - 1) to (iy + 1)
-      if x >= 0 && x < 8 && y >= 0 && y < 8 && (x != ix || y != iy)
-    } yield {
-      (x, y)
-    }
+    val neighbor = getNeighbors(ix, iy)
 
     neighbor.iterator.foreach { case (x, y) =>
       val neighborColor = this.getPiece(x, y)
