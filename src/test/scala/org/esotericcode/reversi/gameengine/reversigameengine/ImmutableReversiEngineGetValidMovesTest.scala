@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 
-// TODO: Move Test data into csv with values board,player,validMoves_separatedByPipe
 class ImmutableReversiEngineGetValidMovesTest {
   @Test
   def testGetValidMovesAtGameStart(): Unit = {
@@ -27,5 +26,21 @@ class ImmutableReversiEngineGetValidMovesTest {
     assertEquals("2| | | | | | | | |", boardRowsStr(7))
     assertEquals("1| | | | | | | | |", boardRowsStr(8))
     assertEquals("_-A-B-C-D-E-F-G-H-", boardRowsStr(9))
+  }
+  @Test
+  def testLastMove(): Unit = {
+    val board = new ImmutableReversiBoard("XOOOOOOO\nOXOXOXXO\nOOXOXXXO\nOOOXXXOO\nOOOOXOXO\nOOOOOXOO\nOOOOOOOO\nOOOOOOO \n")
+    val validMoves = board.getValidMoves('X')
+    assertTrue(validMoves.contains("H1"), "X should be able to make the last move")
+  }
+
+  @Test
+  def testEarlyGameOver(): Unit = {
+    val board = new ImmutableReversiBoard("XOOOOOOO\nOXOXOXXO\nOOXOXXXO\nOOOXXXOO\nOOOOXOXO\nOOOOOXOO\nOOOOOOXO\nOOOOOOO \n")
+    val validMoves = board.getValidMoves('O')
+    assertTrue(validMoves.isEmpty, "Valid moves for O should be empty")
+    assertTrue(board.isGameOver, "Game should be over")
+    val winner = board.calculateWinner()
+    assertEquals(winner._1, 'O', "Winner should be O")
   }
 }
