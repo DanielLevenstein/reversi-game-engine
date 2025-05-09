@@ -24,11 +24,10 @@
     } else if (args.length > 0 && args.contains("--lookahead") ) {
       lookahead = Some(args.apply(args.indexOf("--lookahead") + 1).toInt)
     }
-
-    if (args.length > 0 && args.contains("--command-line")) commandLineGame(aiPlayer, lookahead, allAI)
+    commandLineGame(aiPlayer, lookahead, allAI)
   }
 
-  def commandLineGame(aiPlayer: Option[Char],lookahead: Option[Int] , allAI: Boolean): Unit = {
+  private def commandLineGame(aiPlayer: Option[Char], lookahead: Option[Int], allAI: Boolean): Unit = {
     var currentPlayer = 'X'
     var board = ImmutableReversiBoard.getEmptyBoard
     var quit = false
