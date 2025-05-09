@@ -19,6 +19,8 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 ---
 
 ## Project Structure
+```aiignore
+
 | | |-scala
 | | | |-org
 | | | | |-esotericcode
@@ -41,8 +43,7 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 | | | | | | | | |-ImmutableReversiEngineMakeMoveTest.scala
 | | | | | | | | |-model
 | | | | | | | | | |-ReversiMinMaxTreeTest.scala
-
-
+```
 
 ### 🛠 Requirements
 
