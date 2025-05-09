@@ -132,6 +132,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
     getValidMoves(player).size - getValidMoves(getOpponent(player)).size
   }
 
+
   def getValidMoves(player: Char): Seq[String] = {
     val validMoves = for {
       i <- 0 to 7

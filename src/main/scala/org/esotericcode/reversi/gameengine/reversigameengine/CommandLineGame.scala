@@ -10,7 +10,13 @@
   def main(args: Array[String]): Unit = {
     var aiPlayer = None : Option[Char]
     if (args.length > 0 && args.contains("--ai-player")) {
-      aiPlayer = Some('O')
+      val aiPlayerStr = args.apply(args.indexOf("--ai-player") + 1): String
+      aiPlayer =
+      if(aiPlayerStr.length == 1){
+        Some(aiPlayerStr.charAt(0).toUpper)
+      } else {
+        None
+      }
     }
     if (args.length > 0 && args.contains("--command-line")) commandLineGame(aiPlayer)
 
@@ -24,11 +30,11 @@
       System.out.println("CurrentPlayer=" + currentPlayer)
       board.prettyPrint
       if (aiPlayer.nonEmpty && currentPlayer == aiPlayer.get) {
-        val scoredNode: ScoredNode = Node(board, aiPlayer.get, None, isMax = true, Nil).calculate(3)
-        val board2 = scoredNode.Node.board
+        val scoredNode: ScoredNode = Node(board, aiPlayer.get, None, true).calculate(3)
+        val board2 = scoredNode.node.board
         currentPlayer = nextPlayer(board2, currentPlayer)
         board = board2
-        System.out.println("The AI made move "+ scoredNode.Node.move);
+        System.out.println("The AI made move "+ scoredNode.node.move);
         board.prettyPrint
       }
       else {
