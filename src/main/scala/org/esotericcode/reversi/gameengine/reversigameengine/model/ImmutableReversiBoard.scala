@@ -86,6 +86,21 @@ class ImmutableReversiBoard(val gameBoard: String) {
   private def isOnBoard(x: Int, y: Int) =
     x >= 0 && x < 8 && y >= 0 && y < 8
 
+  def isBoardFull: Boolean = {
+    for (i <- 0 until 8) {
+      for (j <- 0 until 8) {
+        if (this.getPiece(i, j) == ' ') {
+          return false
+        }
+      }
+    }
+    true
+  }
+
+  def isGameOver: Boolean = {
+    getValidMoves(getOpponent('X')).isEmpty && getValidMoves(getOpponent('O')).isEmpty
+  }
+
   private def isRowBounded(player: Char, x: Int, y: Int, xOffset: Int, yOffset: Int): Boolean = {
     var xVal = x
     var yVal = y
@@ -123,13 +138,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
       currentColor = this.getPiece(xVal, yVal)
       this.setPiece(boardString, xVal, yVal, player)
     }
-    currentColor == player
     boardString
-  }
-
-  // Simple heuristic that trys to maximize the number of moves in the future.
-  def heuristicCountMoves(player: Char): Double = {
-    getValidMoves(player).size - getValidMoves(getOpponent(player)).size
   }
 
 

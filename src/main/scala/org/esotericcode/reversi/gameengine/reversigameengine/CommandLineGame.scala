@@ -29,8 +29,9 @@
     while (!quit) {
       System.out.println("CurrentPlayer=" + currentPlayer)
       board.prettyPrint
-      if (aiPlayer.nonEmpty && currentPlayer == aiPlayer.get) {
-        val scoredNode: ScoredNode = Node(board, aiPlayer.get, None).calculate(3)
+      if(board.isGameOver){ quit = true}
+      else if (aiPlayer.nonEmpty && currentPlayer == aiPlayer.get) {
+        val scoredNode: ScoredNode = Node(board, aiPlayer.get, None).calculate(5)
         val board2 = scoredNode.node.board
         currentPlayer = nextPlayer(board2, currentPlayer)
         board = board2

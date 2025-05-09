@@ -1,5 +1,6 @@
 package org.esotericcode.reversi.gameengine.reversigameengine.model
 
+import org.esotericcode.reversi.gameengine.reversigameengine.model.ReversiAIHeuristic.combinedHeuristic
 
 import scala.collection.mutable
 
@@ -8,10 +9,12 @@ case class Node(
         player: Char,                             // The player we should be optimizing for
         move: Option[String],                     // The player we should be optimizing for
      ) {
+
   def calculate(depth: Int): ScoredNode = {
-    ReversiMinMaxTree.minimax(this, depth, player)
+    ReversiMinMaxTree.minimax(this, depth, player, combinedHeuristic)
   }
 }
+
 
 case class MoveKey(immutableReversiBoard: ImmutableReversiBoard, player: Char)
 case class ScoredNode(node: Node, score: Double, depth: Int)
@@ -23,6 +26,7 @@ object ReversiMinMaxTree {
                node: Node, // Board state and player for current node
                depth: Int, // Depth we are searching to
                originalPlayer: Char, // Original player
+               heuristic: (ImmutableReversiBoard, Char) => Double,
                alpha: Double = Double.NegativeInfinity,
                beta: Double = Double.PositiveInfinity
              ): ScoredNode = {
@@ -36,7 +40,7 @@ object ReversiMinMaxTree {
     val moves = node.board.getValidMoves(node.player)
 
     if (depth == 0 || moves.isEmpty) {
-      val score = node.board.heuristicCountMoves(originalPlayer)
+      val score = heuristic(node.board, originalPlayer)
       return ScoredNode(node, score, depth)
     }
 
@@ -52,7 +56,7 @@ object ReversiMinMaxTree {
       val newBoard = node.board.makeMove(move, node.player)
       val nextPlayer = if (node.player == 'X') 'O' else 'X'
       val childNode = Node(newBoard, nextPlayer, Some(move))
-      val score = minimax(childNode, depth - 1, originalPlayer, alphaVar, betaVar).score
+      val score = minimax(childNode, depth - 1, originalPlayer, heuristic, alphaVar, betaVar).score
 
       if (node.player == originalPlayer) {
         if (score > bestScore) {
