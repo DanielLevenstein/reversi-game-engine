@@ -19,17 +19,29 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 ---
 
 ## Project Structure
+| | |-scala
+| | | |-org
+| | | | |-esotericcode
+| | | | | |-reversi
+| | | | | | |-gameengine
+| | | | | | | |-reversigameengine
+| | | | | | | | |-CommandLineGame.scala
+| | | | | | | | |-model
+| | | | | | | | | |-ImmutableReversiBoard.scala
+| | | | | | | | | |-ReversiAIHeuristic.scala
+| | | | | | | | | |-ReversiMinMaxTree.scala
+| |-test
+| | |-scala
+| | | |-org
+| | | | |-esotericcode
+| | | | | |-reversi
+| | | | | | |-gameengine
+| | | | | | | |-reversigameengine
+| | | | | | | | |-ImmutableReversiEngineGetValidMovesTest.scala
+| | | | | | | | |-ImmutableReversiEngineMakeMoveTest.scala
+| | | | | | | | |-model
+| | | | | | | | | |-ReversiMinMaxTreeTest.scala
 
-ImmutableReversiBoard.scala         # Core game logic
-ReversiMinMaxTree.scala             # Min max tree with alpha beta pruning
-ReversiAIHeuristic.scala            # Custom heuristics used in min max tree 
-CommandLineGame.scala    
-
-org.esotericcode.reversi.gameengine.reversigameengine
-## 📦 Build & Run (Maven)
-
-    mvn clean package
-    java -cp reversi-game-engine-0.0.1-SNAPSHOT-jar-with-dependencies.jar org.esotericcode.reversi.gameengine.reversigameengine.CommandLineGame --ai-player O 
 
 
 ### 🛠 Requirements
@@ -44,3 +56,11 @@ org.esotericcode.reversi.gameengine.reversigameengine
 ```bash
 git clone https://github.com/DanielLevenstein/reversi-game-engine.git
 cd reversi-scala-ai
+```
+
+## 📦 Build & Run (Maven)
+```bash
+    mvn clean package
+    java -cp reversi-game-engine-0.0.1-SNAPSHOT-jar-with-dependencies.jar org.esotericcode.reversi.gameengine.reversigameengine.CommandLineGame --ai-player O 
+```
+
