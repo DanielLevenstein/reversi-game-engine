@@ -9,23 +9,25 @@
 @Component object CommandLineGame {
   def main(args: Array[String]): Unit = {
     var aiPlayer = None : Option[Char]
+    var lookahead = None : Option[Int]
     var allAI = false
     if (args.length > 0 && args.contains("--all-ai") ) {
       allAI = true
     } else if (args.length > 0 && args.contains("--ai-player") ) {
       val aiPlayerStr = args.apply(args.indexOf("--ai-player") + 1): String
       aiPlayer =
-      if(aiPlayerStr.length == 1){
-        Some(aiPlayerStr.charAt(0).toUpper)
-      } else {
-        None
-      }
+        if (aiPlayerStr.length == 1) {
+          Some(aiPlayerStr.charAt(0).toUpper)
+        } else {
+          None
+        }
+    } else if (args.length > 0 && args.contains("--lookahead") ) {
+      lookahead = Some(args.apply(args.indexOf("--lookahead") + 1).toInt)
     }
-
-    if (args.length > 0 && args.contains("--command-line")) commandLineGame(aiPlayer, allAI)
+    commandLineGame(aiPlayer, lookahead, allAI)
   }
 
-  def commandLineGame(aiPlayer: Option[Char], allAI: Boolean): Unit = {
+  private def commandLineGame(aiPlayer: Option[Char], lookahead: Option[Int], allAI: Boolean): Unit = {
     var currentPlayer = 'X'
     var board = ImmutableReversiBoard.getEmptyBoard
     var quit = false
