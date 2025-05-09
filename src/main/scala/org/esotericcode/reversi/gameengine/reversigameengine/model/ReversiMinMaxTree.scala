@@ -1,10 +1,7 @@
 package org.esotericcode.reversi.gameengine.reversigameengine.model
 
-import org.esotericcode.reversi.gameengine.reversigameengine.model
 
-import java.util
 import scala.collection.mutable
-
 
 case class Node(
         board: ImmutableReversiBoard,             // Game board state
@@ -13,7 +10,6 @@ case class Node(
      ) {
   def calculate(depth: Int): ScoredNode = {
     ReversiMinMaxTree.minimax(this, depth, player)
-
   }
 }
 
@@ -22,41 +18,65 @@ case class ScoredNode(node: Node, score: Double, depth: Int)
 
 object ReversiMinMaxTree {
   val scoredNodeMap: mutable.Map[MoveKey, ScoredNode] = new mutable.HashMap[MoveKey, ScoredNode]
+
   def minimax(
-               node: Node,
-               depth: Int,
-               player: Char, // The player we should be optimizing for
-  ): ScoredNode  = {
+               node: Node, // Board state and player for current node
+               depth: Int, // Depth we are searching to
+               originalPlayer: Char, // Original player
+               alpha: Double = Double.NegativeInfinity,
+               beta: Double = Double.PositiveInfinity
+             ): ScoredNode = {
     val moveKey = MoveKey(node.board, node.player)
-    val currentNode = scoredNodeMap.get(moveKey)
+    val cached = scoredNodeMap.get(moveKey)
 
-    if(currentNode.nonEmpty && currentNode.get.depth >= depth){
-      currentNode.get
-    } else 
-    {
-      val moves = node.board.getValidMoves(player)
-
-      if (depth == 0 || moves.isEmpty) {
-        val score = node.board.heuristicCountMoves(player)
-        return ScoredNode(node, score, depth): ScoredNode
-      }
-      val childScores = moves.map { move =>
-        val newBoard = node.board.makeMove(move, player)
-        val newPlayer =
-          if (player.equals('X')) 'O'
-          else 'X'
-        val childNode = Node(newBoard, newPlayer, Some(move))
-        val score = minimax(childNode, depth - 1, player).score
-        (childNode, score, depth - 1)
-      }
-
-      val (bestChild, bestScore, _) =
-        childScores.maxBy(_._2)
-
-      System.out.println(bestChild.move, bestScore, depth)
-      val finalScoredNode = ScoredNode(bestChild, bestScore, depth)
-      scoredNodeMap.put(moveKey, finalScoredNode)
-      finalScoredNode
+    if (cached.nonEmpty && cached.get.depth >= depth) {
+      return cached.get
     }
+
+    val moves = node.board.getValidMoves(node.player)
+
+    if (depth == 0 || moves.isEmpty) {
+      val score = node.board.heuristicCountMoves(originalPlayer)
+      return ScoredNode(node, score, depth)
+    }
+
+    var bestScore = if (node.player == originalPlayer) Double.NegativeInfinity else Double.PositiveInfinity
+    var bestChild: Option[Node] = None
+    var alphaVar = alpha
+    var betaVar = beta
+    var i = 0
+    var shouldPrune = false
+
+    while (i < moves.length && !shouldPrune) {
+      val move = moves(i)
+      val newBoard = node.board.makeMove(move, node.player)
+      val nextPlayer = if (node.player == 'X') 'O' else 'X'
+      val childNode = Node(newBoard, nextPlayer, Some(move))
+      val score = minimax(childNode, depth - 1, originalPlayer, alphaVar, betaVar).score
+
+      if (node.player == originalPlayer) {
+        if (score > bestScore) {
+          bestScore = score
+          bestChild = Some(childNode)
+        }
+        alphaVar = math.max(alphaVar, bestScore)
+      } else {
+        if (score < bestScore) {
+          bestScore = score
+          bestChild = Some(childNode)
+        }
+        betaVar = math.min(betaVar, bestScore)
+      }
+
+      if (betaVar <= alphaVar) {
+        shouldPrune = true
+      }
+
+      i += 1
+    }
+
+    val finalNode = ScoredNode(bestChild.getOrElse(node), bestScore, depth)
+    scoredNodeMap.put(moveKey, finalNode)
+    finalNode
   }
 }
