@@ -15,7 +15,7 @@ class ReversiMinMaxTreeTest {
     val board3 = board2.makeMove("F5", 'O')
     val board4 = board3.makeMove("D6", 'X')
     board4.prettyPrint
-    val scoredNode: ScoredNode = Node(board4, 'O', None, true).calculate(3)
+    val scoredNode: ScoredNode = Node(board4, 'O', None).calculate(3)
     System.out.println(scoredNode.score)
     scoredNode.node.board.prettyPrint
   }

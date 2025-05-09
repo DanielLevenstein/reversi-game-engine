@@ -10,7 +10,6 @@ case class Node(
         board: ImmutableReversiBoard,             // Game board state
         player: Char,                             // The player we should be optimizing for
         move: Option[String],                     // The player we should be optimizing for
-        isMax: Boolean
      ) {
   def calculate(depth: Int): ScoredNode = {
     ReversiMinMaxTree.minimax(this, depth, player)
@@ -46,16 +45,14 @@ object ReversiMinMaxTree {
         val newPlayer =
           if (player.equals('X')) 'O'
           else 'X'
-        val childNode = Node(newBoard, newPlayer, Some(move), !node.isMax)
+        val childNode = Node(newBoard, newPlayer, Some(move))
         val score = minimax(childNode, depth - 1, player).score
         (childNode, score, depth - 1)
       }
 
-      val (bestChild, bestScore, _) = if (node.isMax) {
+      val (bestChild, bestScore, _) =
         childScores.maxBy(_._2)
-      } else {
-        childScores.minBy(_._2)
-      }
+
       System.out.println(bestChild.move, bestScore, depth)
       val finalScoredNode = ScoredNode(bestChild, bestScore, depth)
       scoredNodeMap.put(moveKey, finalScoredNode)
