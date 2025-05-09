@@ -13,8 +13,8 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
     - Evaluation caching
 - ✅ Alpha-Beta pruning for optimized performance
 - 🧠 Support for machine-learning-driven heuristics (WIP)
-- 🗃️ Optional database integration for persistent evaluation caching
-- 🔄 Planned: Iterative deepening and move ordering optimizations
+- 🗃️ Database integration for persistent evaluation caching
+- 🔄 Iterative deepening and move ordering optimizations
 
 ---
 
