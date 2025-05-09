@@ -9,7 +9,10 @@
 @Component object CommandLineGame {
   def main(args: Array[String]): Unit = {
     var aiPlayer = None : Option[Char]
-    if (args.length > 0 && args.contains("--ai-player")) {
+    var allAI = false
+    if (args.length > 0 && args.contains("--all-ai") ) {
+      allAI = true
+    } else if (args.length > 0 && args.contains("--ai-player") ) {
       val aiPlayerStr = args.apply(args.indexOf("--ai-player") + 1): String
       aiPlayer =
       if(aiPlayerStr.length == 1){
@@ -18,11 +21,11 @@
         None
       }
     }
-    if (args.length > 0 && args.contains("--command-line")) commandLineGame(aiPlayer)
 
+    if (args.length > 0 && args.contains("--command-line")) commandLineGame(aiPlayer, allAI)
   }
 
-  def commandLineGame(aiPlayer: Option[Char]): Unit = {
+  def commandLineGame(aiPlayer: Option[Char], allAI: Boolean): Unit = {
     var currentPlayer = 'X'
     var board = ImmutableReversiBoard.getEmptyBoard
     var quit = false
@@ -30,8 +33,8 @@
       System.out.println("CurrentPlayer=" + currentPlayer)
       board.prettyPrint
       if(board.isGameOver){ quit = true}
-      else if (aiPlayer.nonEmpty && currentPlayer == aiPlayer.get) {
-        val scoredNode: ScoredNode = Node(board, aiPlayer.get, None).calculate(5)
+      if (allAI  || aiPlayer.nonEmpty && currentPlayer == aiPlayer.get) {
+        val scoredNode: ScoredNode = Node(board, currentPlayer, None).calculate(5)
         val board2 = scoredNode.node.board
         currentPlayer = nextPlayer(board2, currentPlayer)
         board = board2
@@ -55,7 +58,12 @@
           quit = true
       }
     }
+    System.out.println("Game over")
+    val winner = board.calculateWinner()
+    System.out.println("Winner is " + winner._1+" The Final Score is "+winner._2+":"+winner._3)
   }
+
+
 
   private def nextPlayer(board2: ImmutableReversiBoard, currentPlayer: Char): Char = {
     val opponent = ImmutableReversiBoard.getOpponent(currentPlayer)

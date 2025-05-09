@@ -86,15 +86,26 @@ class ImmutableReversiBoard(val gameBoard: String) {
   private def isOnBoard(x: Int, y: Int) =
     x >= 0 && x < 8 && y >= 0 && y < 8
 
-  def isBoardFull: Boolean = {
-    for (i <- 0 until 8) {
-      for (j <- 0 until 8) {
-        if (this.getPiece(i, j) == ' ') {
-          return false
+  def calculateWinner(): (Char, Int, Int) = {
+    var xCount = 0
+    var oCount = 0
+    for(i <- 0 until 8){
+      for(j <- 0 until 8){
+        if(this.getPiece(i,j) == 'X'){
+          xCount += 1
+        } else if(this.getPiece(i,j) == 'O'){
+          oCount += 1
         }
       }
     }
-    true
+    if(xCount > oCount){
+      ('X', xCount, oCount)
+    } else if(oCount > xCount){
+      ('O', oCount, xCount)
+    } else {
+      System.out.println("Invalid board state, no winner.")
+      (' ', xCount, oCount)
+    }
   }
 
   def isGameOver: Boolean = {

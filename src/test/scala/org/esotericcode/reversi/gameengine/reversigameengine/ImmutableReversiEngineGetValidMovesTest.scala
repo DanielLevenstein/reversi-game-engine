@@ -40,5 +40,7 @@ class ImmutableReversiEngineGetValidMovesTest {
     val validMoves = board.getValidMoves('O')
     assertTrue(validMoves.isEmpty, "Valid moves for O should be empty")
     assertTrue(board.isGameOver, "Game should be over")
+    val winner = board.calculateWinner()
+    assertEquals(winner._1, 'O', "Winner should be O")
   }
 }
