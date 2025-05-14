@@ -1,5 +1,3 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.conf
-
 GET     /games/:gameId/board             controllers.GameController.getBoard(gameId: Long)
 GET     /games/:gameId/valid-moves       controllers.GameController.getValidMoves(gameId: Long, player: String)
 POST    /games/:gameId/move              controllers.GameController.makeMove(gameId: Long)

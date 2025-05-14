@@ -1,7 +1,6 @@
 package org.esotericcode.reversi.gameengine.reversigameengine.service
 
 
-import akka.pattern.FutureRef
 import org.esotericcode.reversi.gameengine.reversigameengine.model.{GameBoard, ImmutableReversiBoard}
 import jakarta.inject.{Inject, Singleton}
 import org.esotericcode.reversi.gameengine.reversigameengine.ai.{Node, ScoredNode}

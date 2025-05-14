@@ -46,12 +46,12 @@
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.spark/spark-core -->
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.13</artifactId>
-            <version>4.0.0-preview2</version>
-        </dependency>
+<!--         https://mvnrepository.com/artifact/org.apache.spark/spark-core -->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.spark</groupId>-->
+<!--            <artifactId>spark-core_2.13</artifactId>-->
+<!--            <version>4.0.0-preview2</version>-->
+<!--        </dependency>-->
 
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
@@ -69,6 +69,7 @@
             <artifactId>junit-jupiter-api</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>com.typesafe.play</groupId>
             <artifactId>play-slick_2.13</artifactId>
@@ -107,7 +108,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.5</version>
+            <version>42.7.5</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/jakarta.inject/jakarta.inject-api -->
         <dependency>

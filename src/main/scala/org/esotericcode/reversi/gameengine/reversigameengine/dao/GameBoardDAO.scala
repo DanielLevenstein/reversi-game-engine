@@ -16,18 +16,7 @@ class GameBoardDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit 
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
   private val db = dbConfig.db
 
-  /**
-   * gameId: Long,
-   * boardStateID: Long,
-   * boardState: String,
-   * currentPlayer: String,
-   * aiPlayer: String,
-   * lastMove: String,
-   * isAIEnabled: Boolean
-   * )
-   *
-   * @param tag
-   */
+
   // Define the Table Schema
   class GameBoardsTable(tag: Tag) extends Table[GameBoard](tag, "game_board") {
     def gameId = column[Long]("game_id", O.PrimaryKey)
