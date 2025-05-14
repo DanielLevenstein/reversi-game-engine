@@ -2,12 +2,11 @@
 
   import org.esotericcode.reversi.gameengine.reversigameengine.ai.{Node, ScoredNode}
   import org.esotericcode.reversi.gameengine.reversigameengine.model.ImmutableReversiBoard
-  import org.springframework.stereotype.Component
 
   import java.util
 
 
-@Component object CommandLineGame {
+object CommandLineGame {
   def main(args: Array[String]): Unit = {
     var aiPlayer = None : Option[Char]
     var lookahead = None : Option[Int]

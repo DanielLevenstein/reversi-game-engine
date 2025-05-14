@@ -1,0 +1,11 @@
+package org.esotericcode.reversi.gameengine.reversigameengine.conf
+
+GET     /games/:gameId/board             controllers.GameController.getBoard(gameId: Long)
+GET     /games/:gameId/valid-moves       controllers.GameController.getValidMoves(gameId: Long, player: String)
+POST    /games/:gameId/move              controllers.GameController.makeMove(gameId: Long)
+GET     /games/:gameId/current-turn      controllers.GameController.getCurrentTurn(gameId: Long)
+GET     /games/is-valid-move             controllers.GameController.isValidMove(gameId: Long, player: String, move: String)
+GET     /games/:gameId/last-move         controllers.GameController.getLastMove(gameId: Long)
+GET     /games/:gameId/ai-player         controllers.GameController.getAIPlayer(gameId: Long)
+POST    /games/:gameId/ai-move           controllers.GameController.performAIMove(gameId: Long, player: String)
+GET     /games/:gameId/ai-enabled        controllers.GameController.isAIEnabled(gameId: Long)

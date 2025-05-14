@@ -62,6 +62,11 @@ class ImmutableReversiBoard(val gameBoard: String) {
   def isValidMove(algebraicNotation: String, player: Char): Boolean = {
     isValidMove(algebraicNotation.charAt(0) - 'A', 8 - (algebraicNotation.charAt(1) - '0'), player)
   }
+
+  def isValidMove(algebraicNotation: String, player: String): Boolean = {
+    isValidMove(algebraicNotation.charAt(0) - 'A', 8 - (algebraicNotation.charAt(1) - '0'), player.charAt(0))
+  }
+
   private def isValidMove(ix: Int, iy:Int, player: Char): Boolean = {
 
     if (!this.isEmptySpace(ix, iy)) {
@@ -163,6 +168,19 @@ class ImmutableReversiBoard(val gameBoard: String) {
     validMoves
   }
 
+  def getValidMoves(player: String): Seq[String] = {
+    val validMoves = for {
+      i <- 0 to 7
+      j <- 0 to 7
+      if isValidMove(i, j, player.charAt(0))
+    }
+    yield { getPieceAlgebra(i, j)}
+    validMoves
+  }
+
+  def makeMove(algebra: String, player: String): ImmutableReversiBoard = {
+    makeMove(algebra, player.charAt(0))
+  }
 
   def makeMove(algebra: String, player: Char): ImmutableReversiBoard = {
     val ix = algebra.charAt(0) - 'A'
