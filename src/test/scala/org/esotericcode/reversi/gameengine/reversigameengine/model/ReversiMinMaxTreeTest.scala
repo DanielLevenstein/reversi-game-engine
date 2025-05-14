@@ -1,9 +1,8 @@
 package org.esotericcode.reversi.gameengine.reversigameengine.model
+import org.esotericcode.reversi.gameengine.reversigameengine.ai.{Node, ScoredNode}
 import org.junit.jupiter.api.Test
-
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
