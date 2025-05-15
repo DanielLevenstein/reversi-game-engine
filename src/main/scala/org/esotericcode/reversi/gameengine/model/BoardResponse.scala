@@ -1,4 +1,4 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.model
+package org.esotericcode.reversi.gameengine.model
 
 import play.api.libs.json.{Json, OFormat}
 

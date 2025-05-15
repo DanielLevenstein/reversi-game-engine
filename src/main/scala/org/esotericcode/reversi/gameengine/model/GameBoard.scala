@@ -1,4 +1,5 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.model
+package org.esotericcode.reversi.gameengine.model
+
 import scala.concurrent.{ExecutionContext, Future}
 import javax.inject.{Inject, Singleton}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}

@@ -1,7 +1,6 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.repository
+package org.esotericcode.reversi.gameengine.repository
 
-import org.esotericcode.reversi.gameengine.reversigameengine.model.GameBoard
-
+import org.esotericcode.reversi.gameengine.model.GameBoard
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}

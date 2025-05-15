@@ -1,5 +1,7 @@
 package org.esotericcode.reversi.gameengine.reversigameengine.model
 
+import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
+
 class ImmutableReversiEngineMakeMoveTest {
 
   import org.junit.jupiter.api.Assertions._

@@ -1,14 +1,15 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.controller
-import org.esotericcode.reversi.gameengine.reversigameengine.service.GameService
-import org.scalatestplus.play._
-import play.api.test._
-import play.api.test.Helpers._
-import play.api.libs.json.Json
+package org.esotericcode.reversi.gameengine.controller
+
+import org.esotericcode.reversi.gameengine.service.GameService
 import org.mockito.Mockito._
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.time.SpanSugar.convertIntToGrainOfTime
 import org.scalatestplus.mockito.MockitoSugar
+import org.scalatestplus.play._
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
+import play.api.libs.json.Json
+import play.api.test.Helpers._
+import play.api.test._
 
 import scala.concurrent.{ExecutionContext, Future}
 

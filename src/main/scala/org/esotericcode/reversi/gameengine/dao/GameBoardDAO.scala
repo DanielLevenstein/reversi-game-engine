@@ -1,7 +1,7 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.dao
+package org.esotericcode.reversi.gameengine.dao
 
-import org.esotericcode.reversi.gameengine.reversigameengine.model.GameBoard
-import org.esotericcode.reversi.gameengine.reversigameengine.repository.GameBoardRepository
+import org.esotericcode.reversi.gameengine.model.GameBoard
+import org.esotericcode.reversi.gameengine.repository.GameBoardRepository
 
 import javax.inject._
 import play.api.db.slick.DatabaseConfigProvider
@@ -32,9 +32,11 @@ class GameBoardDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit 
   // Table Query
   private val gameBoards = TableQuery[GameBoardsTable]
 
-  // Create schema on startup
-  createSchema().recover {
-    case ex =>
+  // Run schema creation ONCE, with proper callbacks
+  createSchema().onComplete {
+    case scala.util.Success(_) =>
+      println("Schema created successfully.")
+    case scala.util.Failure(ex) =>
       println(s"Failed to create schema: ${ex.getMessage}")
   }
 

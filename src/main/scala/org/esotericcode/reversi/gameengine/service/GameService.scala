@@ -1,10 +1,9 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.service
+package org.esotericcode.reversi.gameengine.service
 
-
-import org.esotericcode.reversi.gameengine.reversigameengine.model.{GameBoard, ImmutableReversiBoard}
 import jakarta.inject.{Inject, Singleton}
-import org.esotericcode.reversi.gameengine.reversigameengine.ai.{Node, ScoredNode}
-import org.esotericcode.reversi.gameengine.reversigameengine.dao.GameBoardDAO
+import org.esotericcode.reversi.gameengine.ai.{Node, ScoredNode}
+import org.esotericcode.reversi.gameengine.dao.GameBoardDAO
+import org.esotericcode.reversi.gameengine.model.{GameBoard, ImmutableReversiBoard}
 import play.api.mvc.ControllerComponents
 
 import scala.concurrent.ExecutionContext.Implicits.global
