@@ -1,12 +1,11 @@
 package org.esotericcode.reversi.gameengine.model
 
-import scala.concurrent.{ExecutionContext, Future}
-import javax.inject.{Inject, Singleton}
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.json.{Format, Json}
 import slick.jdbc.JdbcProfile
-import slick.jdbc.H2Profile.api._
-import slick.lifted.{ProvenShape, Tag}
+
+import javax.inject.{Inject, Singleton}
+import scala.concurrent.{ExecutionContext, Future}
 
 case class GameBoard(
                       gameId: Long,

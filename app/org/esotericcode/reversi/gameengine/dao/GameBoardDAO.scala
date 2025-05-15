@@ -2,12 +2,11 @@ package org.esotericcode.reversi.gameengine.dao
 
 import org.esotericcode.reversi.gameengine.model.GameBoard
 import org.esotericcode.reversi.gameengine.repository.GameBoardRepository
-
-import javax.inject._
 import play.api.db.slick.DatabaseConfigProvider
 import slick.jdbc.JdbcProfile
 import slick.jdbc.PostgresProfile.api._
 
+import javax.inject._
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton

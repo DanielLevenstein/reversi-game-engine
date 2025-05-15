@@ -1,10 +1,8 @@
 package org.esotericcode.reversi.gameengine.repository
 
 import org.esotericcode.reversi.gameengine.model.GameBoard
-import javax.inject.{Inject, Singleton}
-import scala.concurrent.{ExecutionContext, Future}
-import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import slick.jdbc.JdbcProfile
+
+import scala.concurrent.Future
 
 
 // Trait (interface) - no constructor params
