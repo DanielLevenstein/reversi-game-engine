@@ -1,6 +1,0 @@
-# Database Configuration for Play Slick
-slick.dbs.default.driver = "slick.jdbc.PostgresProfile$"
-slick.dbs.default.db.url = "jdbc:postgresql://localhost:5432/reversi"
-slick.dbs.default.db.user = "postgres"
-slick.dbs.default.db.password = ****
-slick.dbs.default.db.driver = "org.postgresql.Driver"
