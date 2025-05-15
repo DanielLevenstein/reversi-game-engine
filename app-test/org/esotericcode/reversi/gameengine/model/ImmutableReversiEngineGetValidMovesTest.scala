@@ -1,4 +1,4 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.model
+package  org.esotericcode.reversi.gameengine.model
 
 import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
 import org.junit.jupiter.api.Assertions.{assertEquals, assertTrue}

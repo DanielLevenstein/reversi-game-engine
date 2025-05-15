@@ -1,16 +1,18 @@
-package org.esotericcode.reversi.gameengine.service
+package  org.esotericcode.reversi.gameengine.service
 
-import jakarta.inject.{Inject, Singleton}
 import org.esotericcode.reversi.gameengine.ai.{Node, ScoredNode}
 import org.esotericcode.reversi.gameengine.dao.GameBoardDAO
 import org.esotericcode.reversi.gameengine.model.{GameBoard, ImmutableReversiBoard}
+import javax.inject.{Inject, Singleton}
 import play.api.mvc.ControllerComponents
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class GameService @Inject()(cc: ControllerComponents, dao: GameBoardDAO)  {
+class GameService @Inject()(
+                             cc: ControllerComponents,
+                             dao: GameBoardDAO
+                           )(implicit ec: ExecutionContext) {
 
   // TODO implement constructor
   def getBoard(gameId: Long): Future[Option[String]] = {

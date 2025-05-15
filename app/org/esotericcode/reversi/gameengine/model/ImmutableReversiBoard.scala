@@ -1,6 +1,6 @@
-package org.esotericcode.reversi.gameengine.model
+package  org.esotericcode.reversi.gameengine.model
 
-import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard.{getOpponent, getPieceAlgebra, isOpponent, onBoard}
+import ImmutableReversiBoard.{getOpponent, getPieceAlgebra, isOpponent, onBoard}
 object ImmutableReversiBoard {
 
   private def onBoard(x: Int, y: Int) = {

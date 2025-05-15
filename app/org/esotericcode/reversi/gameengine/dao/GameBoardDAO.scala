@@ -1,8 +1,8 @@
 package org.esotericcode.reversi.gameengine.dao
 
 import org.esotericcode.reversi.gameengine.model.GameBoard
-import org.esotericcode.reversi.gameengine.repository.GameBoardRepository
 import play.api.db.slick.DatabaseConfigProvider
+import org.esotericcode.reversi.gameengine.repository.GameBoardRepository
 import slick.jdbc.JdbcProfile
 import slick.jdbc.PostgresProfile.api._
 
@@ -25,7 +25,10 @@ class GameBoardDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit 
     def lastMove = column[String]("last_move")
     def isAIEnabled = column[Boolean]("is_ai_enabled")
 
-    def * = (gameId, boardState, currentTurn, aiPlayer, lastMove, isAIEnabled) <> (GameBoard.tupled, GameBoard.unapply)
+    def * = (gameId, boardState, currentTurn, aiPlayer, lastMove, isAIEnabled) <> (
+      (GameBoard.apply _).tupled,
+      GameBoard.unapply
+    )
   }
 
   // Table Query

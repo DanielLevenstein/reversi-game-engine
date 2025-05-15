@@ -1,7 +1,6 @@
 package org.esotericcode.reversi.gameengine.repository
 
 import org.esotericcode.reversi.gameengine.model.GameBoard
-
 import scala.concurrent.Future
 
 

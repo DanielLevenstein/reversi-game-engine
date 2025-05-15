@@ -34,7 +34,11 @@ class GameBoardRepository @Inject()(protected val dbConfigProvider: DatabaseConf
     def lastMove = column[String]("last_move")
     def isAIEnabled = column[Boolean]("ai_enabled")
 
-    def * = (gameId, boardState, currentTurn, aiPlayer, lastMove, isAIEnabled) <> (GameBoard.tupled, GameBoard.unapply)
+    def * = (gameId, boardState, currentTurn, aiPlayer, lastMove, isAIEnabled) <> (
+      (GameBoard.apply _).tupled,
+      GameBoard.unapply
+    )
+
   }
 
   private val gameBoards = TableQuery[GameBoardTable]

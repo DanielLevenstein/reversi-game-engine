@@ -18,7 +18,14 @@ enablePlugins(PlayScala)
 //
 //resolvers += "Lightbend Releases" at "https://repo.lightbend.com/lightbend-releases"
 
+// Tell sbt where to find main code
+Compile / scalaSource := baseDirectory.value / "app"
+
+// Tell sbt where to find test code
+Test / scalaSource := baseDirectory.value / "app-test"
+
 libraryDependencies ++= Seq(
+
   // Play Framework
   "com.typesafe.play" %% "play" % playVersion,
   "com.typesafe.play" %% "play-slick" % playSlickVersion,
@@ -43,7 +50,9 @@ libraryDependencies ++= Seq(
   "org.scalatestplus" %% "mockito-4-11" % scalatestPlusMockitoVersion % Test,
   "org.mockito" % "mockito-core" % mockitoCoreVersion % Test,
   "org.junit.jupiter" % "junit-jupiter-api" % "5.10.2" % Test,
-  "org.junit.jupiter" % "junit-jupiter-engine" % "5.10.2" % Test
+  "org.junit.jupiter" % "junit-jupiter-engine" % "5.10.2" % Test,
+  // Scala Mock
+  "org.scalamock" %% "scalamock" % "7.3.2" % Test,
 )
 
 libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % "early-semver"

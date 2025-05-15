@@ -1,10 +1,8 @@
-  package org.esotericcode.reversi.gameengine
-
-import org.esotericcode.reversi.gameengine.ai.{Node, ScoredNode}
-import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
+  import org.esotericcode.reversi.gameengine.ai.{Node, ScoredNode}
+  import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
 
 
-object CommandLineGame {
+  object CommandLineGame {
   def main(args: Array[String]): Unit = {
     var aiPlayer = None : Option[Char]
     var lookahead = None : Option[Int]
@@ -34,7 +32,7 @@ object CommandLineGame {
       board.prettyPrint
       if(board.isGameOver){ quit = true}
       if (allAI  || aiPlayer.nonEmpty && currentPlayer == aiPlayer.get) {
-        val scoredNode: ScoredNode = Node(board, currentPlayer, None).calculate(5)
+        val scoredNode: ScoredNode = Node(board, currentPlayer, None).calculate(lookahead.getOrElse(5))
         val board2 = scoredNode.node.board
         currentPlayer = nextPlayer(board2, currentPlayer)
         board = board2
