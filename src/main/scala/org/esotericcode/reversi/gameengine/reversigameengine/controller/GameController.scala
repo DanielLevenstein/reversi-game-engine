@@ -1,6 +1,6 @@
 package org.esotericcode.reversi.gameengine.reversigameengine.controller
 
-import org.esotericcode.reversi.gameengine.reversigameengine.model.GameBoard._
+import org.esotericcode.reversi.gameengine.reversigameengine.model.GameBoard
 import jakarta.inject._
 import org.esotericcode.reversi.gameengine.reversigameengine.model.BoardResponse
 import play.api.mvc._
@@ -13,6 +13,20 @@ import scala.concurrent.ExecutionContext
 @Singleton
 class GameController @Inject()(cc: ControllerComponents, gameService: GameService)(implicit ec: ExecutionContext)
   extends AbstractController(cc) {
+
+  def createSample = Action.async {
+    var sampleBoard = GameBoard(1L, "initialState", "X", "O", "none", isAIEnabled = false)
+    gameService.insertGameBoard(sampleBoard).map { _ =>
+      Ok("Inserted sample game board")
+    }
+  }
+
+  def getSample = Action.async {
+    gameService.getBoard(1L).map {
+      case Some(board) => Ok(s"Got board: $board")
+      case None        => NotFound("No board found")
+    }
+  }
 
   def getBoard(gameId: Long): Action[AnyContent] = Action.async {
     gameService.getBoard(gameId).map {
@@ -33,7 +47,7 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
 
     gameService.makeMove(gameId, move, player).map {
       case Some(updatedBoard) =>
-        Ok(Json.toJson(updatedBoard)(gameBoardFormat.asInstanceOf[Writes[Any]]))
+        Ok(Json.toJson(updatedBoard)(GameBoard.gameBoardFormat.asInstanceOf[Writes[Any]]))
       case None =>
         NotFound(Json.obj("error" -> "Invalid move or game not found"))
     }.recover {

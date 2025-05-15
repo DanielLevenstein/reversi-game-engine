@@ -32,9 +32,14 @@ class GameBoardDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit 
   // Table Query
   private val gameBoards = TableQuery[GameBoardsTable]
 
-  // Create the table (if it doesn't exist)
-  def createTable(): Future[Unit] = {
-    db.run(DBIO.seq(gameBoards.schema.createIfNotExists))
+  // Create schema on startup
+  createSchema().recover {
+    case ex =>
+      println(s"Failed to create schema: ${ex.getMessage}")
+  }
+
+  def createSchema(): Future[Unit] = {
+    db.run(gameBoards.schema.createIfNotExists)
   }
 
   // Get GameBoard by gameId

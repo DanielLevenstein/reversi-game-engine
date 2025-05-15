@@ -19,6 +19,11 @@ class GameService @Inject()(cc: ControllerComponents, dao: GameBoardDAO)  {
     dao.getGameBoard(gameId).map(_.map(_.boardState))
   }
 
+  // Insert a new GameBoard
+  def insertGameBoard(gameBoard: GameBoard): Future[Int] = {
+    dao.insertGameBoard(gameBoard)
+  }
+
   def getValidMoves(gameId: Long, player: String): Future[Seq[String]] = {
     dao.getGameBoard(gameId).map {
       case Some(gameBoard: GameBoard) =>
