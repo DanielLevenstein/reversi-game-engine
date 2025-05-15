@@ -36,7 +36,6 @@
         <scalatestplus-mockito.version>3.2.16.0</scalatestplus-mockito.version> <!-- For Play 2.8.x -->
         <mockito-core.version>5.14.2</mockito-core.version>
         <h2.version>2.2.224</h2.version>
-        <lombok.version>1.18.30</lombok.version>
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     </properties>
     <dependencies>
@@ -143,12 +142,8 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
         </dependency>
     </dependencies>
 
