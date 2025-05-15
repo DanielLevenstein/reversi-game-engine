@@ -1,11 +1,9 @@
-package org.esotericcode.reversi.gameengine.reversigameengine
+package org.esotericcode.reversi.gameengine.reversigameengine.model
 
 class ImmutableReversiEngineMakeMoveTest {
 
-  import org.esotericcode.reversi.gameengine.reversigameengine.model.ImmutableReversiBoard
-  import org.junit.jupiter.api.Test
   import org.junit.jupiter.api.Assertions._
-  import org.junit.jupiter.api.Assertions.assertEquals
+  import org.junit.jupiter.api.Test
 
     @Test
     def testInvalidMovesEdgeConditions(): Unit = {

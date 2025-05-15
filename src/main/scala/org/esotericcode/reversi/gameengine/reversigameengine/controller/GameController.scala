@@ -2,7 +2,7 @@ package org.esotericcode.reversi.gameengine.reversigameengine.controller
 
 import org.esotericcode.reversi.gameengine.reversigameengine.model.GameBoard._
 import jakarta.inject._
-import org.esotericcode.reversi.gameengine.reversigameengine.model.{BoardResponse, GameBoard}
+import org.esotericcode.reversi.gameengine.reversigameengine.model.BoardResponse
 import play.api.mvc._
 import org.esotericcode.reversi.gameengine.reversigameengine.service.GameService
 import play.api.libs.json.Format.GenericFormat

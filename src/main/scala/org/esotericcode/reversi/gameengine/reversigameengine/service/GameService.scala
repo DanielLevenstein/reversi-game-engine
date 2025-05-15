@@ -13,6 +13,7 @@ import scala.concurrent.Future
 @Singleton
 class GameService @Inject()(cc: ControllerComponents, dao: GameBoardDAO)  {
 
+  // TODO implement constructor
   def getBoard(gameId: Long): Future[Option[String]] = {
     // Load from DB or memory, return BoardState
     dao.getGameBoard(gameId).map(_.map(_.boardState))

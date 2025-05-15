@@ -80,16 +80,32 @@
         <dependency>
             <groupId>org.playframework</groupId>
             <artifactId>play_2.13</artifactId>
-            <version>3.0.7</version>
+            <version>3.0.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.playframework/play-json -->
         <dependency>
             <groupId>org.playframework</groupId>
             <artifactId>play-json_2.13</artifactId>
-            <version>3.0.4</version>
+            <version>3.0.0</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/org.scalatestplus.play/scalatestplus-play -->
+        <dependency>
+            <groupId>org.scalatestplus.play</groupId>
+            <artifactId>scalatestplus-play_2.13</artifactId>
+            <version>7.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.17.0</version>
+            <scope>test</scope>
+        </dependency>
         <!-- Slick (The Functional Relational Mapping library) -->
         <dependency>
             <groupId>com.typesafe.slick</groupId>
@@ -152,10 +168,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
             <plugin>
