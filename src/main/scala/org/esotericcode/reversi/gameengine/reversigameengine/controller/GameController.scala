@@ -55,9 +55,16 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
     }
   }
 
+  def getCurrentTurn(gameId: Long): Action[AnyContent] = Action.async {
+    gameService.getCurrentTurn(gameId).map {
+      case Some(player) => Ok(Json.obj("currentTurn" -> player))
+      case None => NotFound(Json.obj("error" -> "AI player not set"))
+    }
+  }
+
   def getAIPlayer(gameId: Long): Action[AnyContent] = Action.async {
     gameService.getAIPlayer(gameId).map {
-      case Some(player) => Ok(Json.obj("aiPlayer" -> player.toString))
+      case Some(player) => Ok(Json.obj("aiPlayer" -> player))
       case None => NotFound(Json.obj("error" -> "AI player not set"))
     }
   }

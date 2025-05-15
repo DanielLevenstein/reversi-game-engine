@@ -21,12 +21,12 @@ class GameBoardDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit 
   class GameBoardsTable(tag: Tag) extends Table[GameBoard](tag, "game_board") {
     def gameId = column[Long]("game_id", O.PrimaryKey)
     def boardState = column[String]("board_state")
-    def currentPlayer = column[String]("current_player")
+    def currentTurn = column[String]("current_turn")
     def aiPlayer = column[String]("ai_player")
     def lastMove = column[String]("last_move")
     def isAIEnabled = column[Boolean]("is_ai_enabled")
 
-    def * = (gameId, boardState, currentPlayer, aiPlayer, lastMove, isAIEnabled) <> (GameBoard.tupled, GameBoard.unapply)
+    def * = (gameId, boardState, currentTurn, aiPlayer, lastMove, isAIEnabled) <> (GameBoard.tupled, GameBoard.unapply)
   }
 
   // Table Query
@@ -49,7 +49,7 @@ class GameBoardDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit 
 
   // Update the boardState and currentTurn of a GameBoard
   def updateGameBoard(gameId: Long, boardState: String, currentTurn: String): Future[Int] = {
-    db.run(gameBoards.filter(_.gameId === gameId).map(gb => (gb.boardState, gb.currentPlayer))
+    db.run(gameBoards.filter(_.gameId === gameId).map(gb => (gb.boardState, gb.currentTurn))
       .update(boardState, currentTurn))
   }
 }

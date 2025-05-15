@@ -54,6 +54,12 @@ class GameService @Inject()(cc: ControllerComponents, dao: GameBoardDAO)  {
     dao.getGameBoard(gameId).map(_.map(_.lastMove))
   }
 
+
+  def getCurrentTurn(gameId: Long): Future[Option[String]] = {
+    // Retrieve current player symbol
+    dao.getGameBoard(gameId).map(_.map(_.currentTurn))
+  }
+
   def getAIPlayer(gameId: Long): Future[Option[String]] = {
     // Retrieve AI player symbol
     dao.getGameBoard(gameId).map(_.map(_.aiPlayer))
