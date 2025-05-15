@@ -28,6 +28,14 @@
     </scm>
     <properties>
         <java.version>17</java.version>
+        <slick.version>3.3.3</slick.version>
+        <play-slick.version>5.0.0</play-slick.version>       <!-- For Play 2.8.x -->
+        <play-json.version>2.9.4</play-json.version>         <!-- Latest stable for Play 2.8.x -->
+        <scalatestplus-play.version>5.1.0</scalatestplus-play.version> <!-- For Play 2.8.x -->
+        <scalatestplus-mockito.version>3.2.16.0</scalatestplus-mockito.version> <!-- For Play 2.8.x -->
+        <h2.version>2.2.224</h2.version>
+        <lombok.version>1.18.30</lombok.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
@@ -46,19 +54,6 @@
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
 
-<!--         https://mvnrepository.com/artifact/org.apache.spark/spark-core -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.spark</groupId>-->
-<!--            <artifactId>spark-core_2.13</artifactId>-->
-<!--            <version>4.0.0-preview2</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-test</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -73,29 +68,30 @@
         <dependency>
             <groupId>com.typesafe.play</groupId>
             <artifactId>play-slick_2.13</artifactId>
-            <version>5.1.0</version>
+<!--            <version>5.0.2</version> &lt;!&ndash; ✅ This works with Play 2.8.x &ndash;&gt;-->
+            <version>${play-slick.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.playframework/play -->
         <dependency>
-            <groupId>org.playframework</groupId>
-            <artifactId>play_2.13</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.playframework/play-json -->
-        <dependency>
-            <groupId>org.playframework</groupId>
+            <groupId>com.typesafe.play</groupId>
             <artifactId>play-json_2.13</artifactId>
-            <version>3.0.0</version>
+<!--            <version>2.9.4</version> &lt;!&ndash; latest stable for Play 2.8.x &ndash;&gt;-->
+            <version>${play-json.version}</version>
         </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/org.scalatestplus.play/scalatestplus-play -->
         <dependency>
             <groupId>org.scalatestplus.play</groupId>
             <artifactId>scalatestplus-play_2.13</artifactId>
-            <version>7.0.0</version>
+<!--            <version>5.1.0</version>  &lt;!&ndash; ✅ Compatible with Play 2.8.x &ndash;&gt;-->
+            <version>${scalatestplus-play.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.scalatestplus</groupId>
+            <artifactId>mockito-4-11_2.13</artifactId>
+            <version>${scalatestplus-mockito.version}</version> <!-- ✅ Works with ScalaTest 3.2.15 and Mockito 4.11 -->
             <scope>test</scope>
         </dependency>
 
@@ -110,14 +106,15 @@
         <dependency>
             <groupId>com.typesafe.slick</groupId>
             <artifactId>slick_2.13</artifactId>
-            <version>3.3.3</version> <!-- Use the appropriate Slick version -->
+            <version>${slick.version}</version>
+<!--            <version>3.3.3</version> &lt;!&ndash; Use the appropriate Slick version &ndash;&gt;-->
         </dependency>
 
         <!-- HikariCP (Connection pool for Slick) -->
         <dependency>
             <groupId>com.typesafe.slick</groupId>
             <artifactId>slick-hikaricp_2.13</artifactId>
-            <version>3.3.3</version> <!-- Use the appropriate Slick version -->
+            <version>${slick.version}</version> <!-- Use the appropriate Slick version -->
         </dependency>
 
         <!-- PostgreSQL JDBC Driver -->
@@ -173,7 +170,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
@@ -187,4 +183,11 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>lightbend-releases</id>
+            <name>Lightbend Repository</name>
+            <url>https://repo.lightbend.com/lightbend-releases</url>
+        </repository>
+    </repositories>
 </project>
