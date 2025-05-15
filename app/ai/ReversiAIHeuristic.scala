@@ -1,7 +1,7 @@
-package org.esotericcode.reversi.gameengine.ai
+package ai
 
-import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
-import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard.getOpponent
+import model.ImmutableReversiBoard
+import ImmutableReversiBoard.getOpponent
 
 object ReversiAIHeuristic {
 

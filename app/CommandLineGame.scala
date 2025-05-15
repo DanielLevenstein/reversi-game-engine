@@ -1,10 +1,8 @@
-  package org.esotericcode.reversi.gameengine
-
-import org.esotericcode.reversi.gameengine.ai.{Node, ScoredNode}
-import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
+  import ai.{Node, ScoredNode}
+  import model.ImmutableReversiBoard
 
 
-object CommandLineGame {
+  object CommandLineGame {
   def main(args: Array[String]): Unit = {
     var aiPlayer = None : Option[Char]
     var lookahead = None : Option[Int]

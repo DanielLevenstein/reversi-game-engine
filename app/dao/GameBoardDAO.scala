@@ -1,8 +1,8 @@
-package org.esotericcode.reversi.gameengine.dao
+package dao
 
-import org.esotericcode.reversi.gameengine.model.GameBoard
-import org.esotericcode.reversi.gameengine.repository.GameBoardRepository
+import model.GameBoard
 import play.api.db.slick.DatabaseConfigProvider
+import repository.GameBoardRepository
 import slick.jdbc.JdbcProfile
 import slick.jdbc.PostgresProfile.api._
 

@@ -1,7 +1,7 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.ai
+package ai
 
-import org.esotericcode.reversi.gameengine.ai.{Node, ScoredNode}
-import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
+import ai.{Node, ScoredNode}
+import model.ImmutableReversiBoard
 import org.junit.jupiter.api.Test
 
 class ReversiMinMaxTreeTest {

@@ -1,4 +1,4 @@
-package org.esotericcode.reversi.gameengine.model
+package model
 
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.libs.json.{Format, Json}

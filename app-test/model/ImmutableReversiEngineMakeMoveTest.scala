@@ -1,6 +1,6 @@
-package org.esotericcode.reversi.gameengine.reversigameengine.model
+package model
 
-import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
+import model.ImmutableReversiBoard
 
 class ImmutableReversiEngineMakeMoveTest {
 

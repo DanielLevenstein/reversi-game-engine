@@ -1,11 +1,11 @@
-package org.esotericcode.reversi.gameengine.controller
+package controllers
 
-import jakarta.inject._
-import org.esotericcode.reversi.gameengine.model.{BoardResponse, GameBoard}
-import org.esotericcode.reversi.gameengine.service.GameService
+import javax.inject._
+import model.{BoardResponse, GameBoard}
 import play.api.libs.json.Format.GenericFormat
 import play.api.libs.json.{JsValue, Json, Writes}
 import play.api.mvc._
+import service.GameService
 
 import scala.concurrent.ExecutionContext
 

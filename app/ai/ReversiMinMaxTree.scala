@@ -1,7 +1,7 @@
-package org.esotericcode.reversi.gameengine.ai
+package ai
 
-import org.esotericcode.reversi.gameengine.ai.ReversiAIHeuristic.combinedHeuristic
-import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
+import ReversiAIHeuristic.combinedHeuristic
+import model.ImmutableReversiBoard
 
 import scala.collection.mutable
 

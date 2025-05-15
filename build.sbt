@@ -18,7 +18,14 @@ enablePlugins(PlayScala)
 //
 //resolvers += "Lightbend Releases" at "https://repo.lightbend.com/lightbend-releases"
 
+// Tell sbt where to find main code
+Compile / scalaSource := baseDirectory.value / "app"
+
+// Tell sbt where to find test code
+Test / scalaSource := baseDirectory.value / "app-test"
+
 libraryDependencies ++= Seq(
+
   // Play Framework
   "com.typesafe.play" %% "play" % playVersion,
   "com.typesafe.play" %% "play-slick" % playSlickVersion,
