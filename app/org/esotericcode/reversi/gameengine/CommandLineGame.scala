@@ -38,7 +38,7 @@ package org.esotericcode.reversi.gameengine
         val board2 = scoredNode.node.board
         currentPlayer = nextPlayer(board2, currentPlayer)
         board = board2
-        System.out.println("The AI made move "+ scoredNode.node.move);
+        System.out.println("The AI made move "+ scoredNode.node.move)
         board.prettyPrint
       }
       else {

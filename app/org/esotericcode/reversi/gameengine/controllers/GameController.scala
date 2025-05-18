@@ -1,11 +1,12 @@
 package org.esotericcode.reversi.gameengine.controllers
 
 import javax.inject._
-import org.esotericcode.reversi.gameengine.model.{BoardResponse, GameBoard, ImmutableReversiBoard}
+import org.esotericcode.reversi.gameengine.model.{GameBoard, ImmutableReversiBoard}
 import play.api.libs.json.Format.GenericFormat
 import play.api.libs.json.{JsValue, Json, Writes}
-import play.api.mvc._
+import play.api.mvc.{Action, _}
 import org.esotericcode.reversi.gameengine.service.GameService
+import play.api.libs.json.JsPath.\
 
 import scala.concurrent.ExecutionContext
 
@@ -15,7 +16,7 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
 
   def createSample: Action[AnyContent] = Action.async {
     val sampleBoard = GameBoard(1L, ImmutableReversiBoard.getEmptyBoard.gameBoard,
-      "X", "O", isAIEnabled = false)
+      "X", "O", isAIEnabled = true)
     gameService.insertGameBoard(sampleBoard).map { _ =>
       Ok("Inserted sample game board")
     }
@@ -30,7 +31,7 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
 
   def getBoard(gameId: Long): Action[AnyContent] = Action.async {
     gameService.getBoard(gameId).map {
-      case Some(board) => Ok(Json.toJson(BoardResponse(board)))
+      case Some(board) => Ok(Json.toJson(board))
       case None => NotFound("Game not found")
     }
   }
@@ -62,30 +63,16 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
     }
   }
 
-  def getCurrentTurn(gameId: Long): Action[AnyContent] = Action.async {
-    gameService.getCurrentTurn(gameId).map {
-      case Some(player) => Ok(Json.obj("currentTurn" -> player))
-      case None => NotFound(Json.obj("error" -> "AI player not set"))
-    }
-  }
-
-  def getAIPlayer(gameId: Long): Action[AnyContent] = Action.async {
-    gameService.getAIPlayer(gameId).map {
-      case Some(player) => Ok(Json.obj("aiPlayer" -> player))
-      case None => NotFound(Json.obj("error" -> "AI player not set"))
-    }
-  }
-
-  def performAIMove(gameId: Long, player: String): Action[AnyContent] = Action.async {
-    gameService.getAIMove(gameId, player).map {
-      case Some(result) => Ok(Json.obj("aiMove" -> result))
+  def getAIMove(gameId: Long): Action[AnyContent] = Action.async {
+    gameService.getAIMove(gameId).map {
+      case Some(result) => Ok(Json.toJson(result))
       case None => NotFound(Json.obj("error" -> "No valid AI move found"))
     }
   }
-
-  def isAIEnabled(gameId: Long): Action[AnyContent] = Action.async {
-    gameService.isAIEnabled(gameId).map { enabled =>
-      Ok(Json.obj("aiEnabled" -> enabled))
+  def performAIMove(gameId: Long): Action[AnyContent] = Action.async {
+    gameService.getAIMove(gameId).map {
+      case Some(result) => Ok(Json.obj("aiMove" -> result))
+      case None => NotFound(Json.obj("error" -> "No valid AI move found"))
     }
   }
 }

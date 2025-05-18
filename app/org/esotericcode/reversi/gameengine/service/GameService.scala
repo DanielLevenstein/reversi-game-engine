@@ -15,9 +15,9 @@ class GameService @Inject()(
                            )(implicit ec: ExecutionContext) {
 
   // TODO implement constructor
-  def getBoard(gameId: Long): Future[Option[String]] = {
+  def getBoard(gameId: Long): Future[Option[GameBoard]] = {
     // Load from DB or memory, return BoardState
-    dao.getGameBoard(gameId).map(_.map(_.boardState))
+    dao.getGameBoard(gameId)
   }
 
   // Insert a new GameBoard
@@ -57,17 +57,7 @@ class GameService @Inject()(
   }
 
 
-  def getCurrentTurn(gameId: Long): Future[Option[String]] = {
-    // Retrieve current player symbol
-    dao.getGameBoard(gameId).map(_.map(_.currentTurn))
-  }
-
-  def getAIPlayer(gameId: Long): Future[Option[String]] = {
-    // Retrieve AI player symbol
-    dao.getGameBoard(gameId).map(_.map(_.aiPlayer))
-  }
-
-  def getAIMove(gameId: Long, player: String): Future[Option[String]] = {
+  def getAIMove(gameId: Long): Future[Option[String]] = {
     // Return AI move using Minimax tree
     dao.getGameBoard(gameId).map {
       case Some(gameBoard: GameBoard) =>
@@ -79,8 +69,4 @@ class GameService @Inject()(
     }
   }
 
-  def isAIEnabled(gameId: Long): Future[Option[Boolean]] = {
-    // Check flag
-    dao.getGameBoard(gameId).map(_.map(_.isAIEnabled))
-  }
 }
