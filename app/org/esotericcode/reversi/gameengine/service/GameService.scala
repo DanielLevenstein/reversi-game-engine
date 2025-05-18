@@ -56,11 +56,6 @@ class GameService @Inject()(
     }
   }
 
-  def getLastMove(gameId: Long): Future[Option[String]] = {
-    // Retrieve last move
-    dao.getGameBoard(gameId).map(_.map(_.lastMove))
-  }
-
 
   def getCurrentTurn(gameId: Long): Future[Option[String]] = {
     // Retrieve current player symbol

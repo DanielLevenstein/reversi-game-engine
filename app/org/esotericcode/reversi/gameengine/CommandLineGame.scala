@@ -1,3 +1,5 @@
+package org.esotericcode.reversi.gameengine
+
   import org.esotericcode.reversi.gameengine.ai.{Node, ScoredNode}
   import org.esotericcode.reversi.gameengine.model.ImmutableReversiBoard
 

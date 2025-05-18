@@ -1,7 +1,7 @@
 package org.esotericcode.reversi.gameengine.controllers
 
 import javax.inject._
-import org.esotericcode.reversi.gameengine.model.{BoardResponse, GameBoard}
+import org.esotericcode.reversi.gameengine.model.{BoardResponse, GameBoard, ImmutableReversiBoard}
 import play.api.libs.json.Format.GenericFormat
 import play.api.libs.json.{JsValue, Json, Writes}
 import play.api.mvc._
@@ -13,14 +13,15 @@ import scala.concurrent.ExecutionContext
 class GameController @Inject()(cc: ControllerComponents, gameService: GameService)(implicit ec: ExecutionContext)
   extends AbstractController(cc) {
 
-  def createSample = Action.async {
-    var sampleBoard = GameBoard(1L, "initialState", "X", "O", "none", isAIEnabled = false)
+  def createSample: Action[AnyContent] = Action.async {
+    val sampleBoard = GameBoard(1L, ImmutableReversiBoard.getEmptyBoard.gameBoard,
+      "X", "O", isAIEnabled = false)
     gameService.insertGameBoard(sampleBoard).map { _ =>
       Ok("Inserted sample game board")
     }
   }
 
-  def getSample = Action.async {
+  def getSample: Action[AnyContent] = Action.async {
     gameService.getBoard(1L).map {
       case Some(board) => Ok(s"Got board: $board")
       case None        => NotFound("No board found")
@@ -58,13 +59,6 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
   def isValidMove(gameId: Long, player: String, move: String): Action[AnyContent] = Action.async {
     gameService.isValidMove(gameId, player, move).map { isValid =>
       Ok(Json.obj("valid" -> isValid))
-    }
-  }
-
-  def getLastMove(gameId: Long): Action[AnyContent] = Action.async {
-    gameService.getLastMove(gameId).map {
-      case Some(move) => Ok(Json.obj("lastMove" -> move))
-      case None => NotFound(Json.obj("error" -> "Move not found"))
     }
   }
 

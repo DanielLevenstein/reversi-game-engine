@@ -12,7 +12,6 @@ case class GameBoard(
                       boardState: String,
                       currentTurn: String,
                       aiPlayer: String,
-                      lastMove: String,
                       isAIEnabled: Boolean
                     )
 object GameBoard {
@@ -31,10 +30,9 @@ class GameBoardRepository @Inject()(protected val dbConfigProvider: DatabaseConf
     def boardState = column[String]("board_state")
     def currentTurn = column[String]("current_turn")
     def aiPlayer = column[String]("ai_player")
-    def lastMove = column[String]("last_move")
     def isAIEnabled = column[Boolean]("ai_enabled")
 
-    def * = (gameId, boardState, currentTurn, aiPlayer, lastMove, isAIEnabled) <> (
+    def * = (gameId, boardState, currentTurn, aiPlayer, isAIEnabled) <> (
       (GameBoard.apply _).tupled,
       GameBoard.unapply
     )
@@ -52,8 +50,8 @@ class GameBoardRepository @Inject()(protected val dbConfigProvider: DatabaseConf
   def updateGameBoard(gameId: Long, boardState: String, currentTurn: String,
                       aiPlayer: String, lastMove: String, isAIEnabled: Boolean): Future[Int] = {
     val query = gameBoards.filter(_.gameId === gameId)
-      .map(gb => (gb.boardState, gb.currentTurn, gb.aiPlayer, gb.lastMove, gb.isAIEnabled))
-      .update((boardState, currentTurn, aiPlayer, lastMove, isAIEnabled))
+      .map(gb => (gb.boardState, gb.currentTurn, gb.aiPlayer, gb.isAIEnabled))
+      .update((boardState, currentTurn, aiPlayer, isAIEnabled))
     db.run(query)
   }
 }

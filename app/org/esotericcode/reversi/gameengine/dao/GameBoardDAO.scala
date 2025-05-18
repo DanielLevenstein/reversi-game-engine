@@ -22,10 +22,9 @@ class GameBoardDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit 
     def boardState = column[String]("board_state")
     def currentTurn = column[String]("current_turn")
     def aiPlayer = column[String]("ai_player")
-    def lastMove = column[String]("last_move")
     def isAIEnabled = column[Boolean]("is_ai_enabled")
 
-    def * = (gameId, boardState, currentTurn, aiPlayer, lastMove, isAIEnabled) <> (
+    def * = (gameId, boardState, currentTurn, aiPlayer, isAIEnabled) <> (
       (GameBoard.apply _).tupled,
       GameBoard.unapply
     )
