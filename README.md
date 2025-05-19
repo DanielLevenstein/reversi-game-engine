@@ -50,9 +50,6 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
   - `' '` (space) → empty square
 - The current player is tracked using the `currentPlayer` field.
 
----
-
-## 🗃️ Database Schema (GameBoard)
 
 ```scala
 case class GameBoard(
