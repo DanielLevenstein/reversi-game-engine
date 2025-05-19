@@ -21,19 +21,18 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 ## REST API
 
 
-* TODO: Create a rest API which interfaces with the ImmutableReversiBoard
 * This is a very rough draft of the design and will be updated as we make progress
-*
+* The Rest API methods are defined in the conf/routes file and are listed below for documentation
 * Methods to implement:
-* GET /games/{gameId}/board -> database.getBoard(gameID)
-* GET /games/{gameId}/valid-moves?player=val -> board.getValidMoves(gameID,player)
-* POST /games/{gameId}/move -> board.makeMove() -> saveBoardToDatabase(gameID, nextPlayer)
-* GET /games/{gameId}/current-turn database.getCurrentTurn(gameID)
-* GET /games/is-valid-move -> board.isValidMove(gameID, player)
-* GET /games/{gameId}/last-move -> database.getLastMove(gameID)
-* GET /games/{gameId}/ai-player -> database.getAIPlayer(gameID)
-* POST /games/{gameId}/ai-move -> minMaxTree.getMoveFromAI(gameID, player)
-* GET /games/{gameId}/ai-enabled -> database.isAIEnabled()
+  GET     /games/create-sample                    
+  GET     /games/get-sample                       
+  GET     /games/new-game                         
+  GET     /games/:gameId                         
+  GET     /games/:gameId/valid-moves/:player     
+  POST    /games/:gameId/move               
+  GET     /games/:gameId/ai-move               
+  POST    /games/:gameId/ai-move                
+
 
 API Notes:
 The game board is stored as a single string with \n as the delimiter separating rows.

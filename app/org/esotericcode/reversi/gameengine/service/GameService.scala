@@ -14,7 +14,6 @@ class GameService @Inject()(
                              dao: GameBoardDAO
                            )(implicit ec: ExecutionContext) {
 
-  // TODO implement constructor
   def getBoard(gameId: Long): Future[Option[GameBoard]] = {
     // Load from DB or memory, return BoardState
     dao.getGameBoard(gameId)
@@ -68,23 +67,23 @@ class GameService @Inject()(
     // Return AI move using Minimax tree
     dao.getGameBoard(gameId).map {
       case Some(gameBoard: GameBoard) =>
-        getAiMoveHelper(gameId, gameBoard, aiPlayer)
+        getAiMoveHelper(gameBoard, aiPlayer)
       case None =>
         None
     }
   }
 
-  def getAiMoveHelper(gameId: Long, gameBoard: GameBoard, aiPlayer: String): Option[String] = {
+  def getAiMoveHelper(gameBoard: GameBoard, aiPlayer: String): Option[String] = {
     val reversiBoard = new ImmutableReversiBoard(gameBoard.boardState)
     val scoredNode: ScoredNode = Node(reversiBoard, aiPlayer.charAt(0), None).calculate(5)
-    scoredNode.node.move.getOrElse(None).asInstanceOf[Option[String]]
+    scoredNode.node.move
   }
 
   def makeAIMove(gameId: Long, aiPlayer: String): Future[Option[GameBoard]] = {
     // Return AI move using Minimax tree
     dao.getGameBoard(gameId).map {
       case Some(gameBoard: GameBoard) =>
-        val move = getAiMoveHelper(gameId, gameBoard, aiPlayer).get
+        val move = getAiMoveHelper(gameBoard, aiPlayer).get
         makeMoveHelper(gameId, gameBoard, aiPlayer, move)
       case None => None
     }

@@ -79,7 +79,7 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
     }
   }
   def makeAIMove(gameId: Long): Action[JsValue] = Action.async(parse.json) { request =>
-    val player = (request.body \ "player").as[String]
+    val player = (request.body \ "ai-player").as[String]
 
     gameService.makeAIMove(gameId, player).map{
       case Some(result) => Ok(Json.toJson(result))

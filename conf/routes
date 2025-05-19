@@ -3,7 +3,6 @@ GET     /games/get-sample                       org.esotericcode.reversi.gameeng
 GET     /games/new-game                         org.esotericcode.reversi.gameengine.controllers.GameController.newGame()
 GET     /games/:gameId                          org.esotericcode.reversi.gameengine.controllers.GameController.getBoard(gameId: Long)
 GET     /games/:gameId/valid-moves/:player      org.esotericcode.reversi.gameengine.controllers.GameController.getValidMoves(gameId: Long, player)
-POST    /games/:gameId/make-move                     org.esotericcode.reversi.gameengine.controllers.GameController.makeMove(gameId: Long)
-# The following 3 api calls aren't working the thing they have in common is they are all trying to pull data from the GameBoard obj
+POST    /games/:gameId/move                     org.esotericcode.reversi.gameengine.controllers.GameController.makeMove(gameId: Long)
 GET     /games/:gameId/ai-move                  org.esotericcode.reversi.gameengine.controllers.GameController.getAIMove(gameId: Long,player: String)
 POST    /games/:gameId/ai-move                  org.esotericcode.reversi.gameengine.controllers.GameController.makeAIMove(gameId: Long)

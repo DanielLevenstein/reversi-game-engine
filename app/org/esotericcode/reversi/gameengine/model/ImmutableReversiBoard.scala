@@ -38,7 +38,6 @@ object ImmutableReversiBoard {
 
 class ImmutableReversiBoard(val gameBoard: String) {
 
-  // TODO: Remove /n character from board strings and change constant to 8
   def getPiece(letterIndex: Int, numIndex: Int): Char = {
     if(isOnBoard(letterIndex, numIndex)) {
       val charIndex = (numIndex * 9) + letterIndex
@@ -52,7 +51,7 @@ class ImmutableReversiBoard(val gameBoard: String) {
     if(getValidMoves(getOpponent(player)).isEmpty) player else getOpponent(player)
   }
 
-  // TODO: Remove /n character from board strings and change constant to 8
+
   def setPiece(boardString: StringBuilder, letterIndex: Int, numIndex: Int, player: Char): StringBuilder = {
     val charIndex = (numIndex * 9) + letterIndex
     boardString.setCharAt(charIndex, player)
