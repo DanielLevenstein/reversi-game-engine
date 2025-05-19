@@ -6,96 +6,63 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 
 ## 🚀 Features
 
-- ✅ Core Reversi game logic
-- ✅ Minimax algorithm with:
-    - Heuristic scoring
-    - Move tracking
-    - Evaluation caching
-- ✅ Alpha-Beta pruning for optimized performance
-- 🧠 Support for machine-learning-driven heuristics (WIP)
-- 🗃️ Database integration for persistent evaluation caching
-- 🔄 Iterative deepening and move ordering optimizations
+- Core Reversi game logic
+- Minimax algorithm with:
+  - Heuristic scoring
+  - Move tracking
+  - Evaluation caching
+- Alpha-Beta pruning for optimized performance
+- Support for machine-learning-driven heuristics (WIP)
+- Database integration for persistent evaluation caching
+- Iterative deepening and move ordering optimizations
 
 ---
 
-## REST API
+## 🌐 REST API
 
+- The REST API is implemented using the [Scala Play Framework](https://www.playframework.com/)
+- Endpoints are defined in `conf/routes`
+- This is a work-in-progress and subject to change
+- Below is a list of currently supported methods:
 
-* This is a very rough draft of the design and will be updated as we make progress
-* The Rest API methods are defined in the conf/routes file and are listed below for documentation
-* Methods to implement:
-  GET     /games/create-sample                    
-  GET     /games/get-sample                       
-  GET     /games/new-game                         
-  GET     /games/:gameId                         
-  GET     /games/:gameId/valid-moves/:player     
-  POST    /games/:gameId/move               
-  GET     /games/:gameId/ai-move               
-  POST    /games/:gameId/ai-move                
+### REST API Methods
 
+| Method | Endpoint                             | Description                              |
+|--------|--------------------------------------|------------------------------------------|
+| GET    | `/games/create-sample`               | Create a sample game                     |
+| GET    | `/games/get-sample`                  | Retrieve a sample game                   |
+| GET    | `/games/new-game`                    | Create a new game                        |
+| GET    | `/games/:gameId`                     | Get full game state                      |
+| GET    | `/games/:gameId/valid-moves/:player` | Get valid moves for a given player       |
+| POST   | `/games/:gameId/move`                | Apply a human player's move              |
+| GET    | `/games/:gameId/ai-move`             | Retrieve the AI's suggested move         |
+| POST   | `/games/:gameId/ai-move`             | Apply the AI's move to the game board    |
 
-API Notes:
-The game board is stored as a single string with \n as the delimiter separating rows.
-The getValidMoves method current returns a list of String values using the chess algebra notation.
-Player and turn variables are currently stored as 'X' and 'O' values
-with 'X' mapping to black pieces and 'O' mapping to white pieces and empty squares denoted by ' ' char.
+---
 
-I don't know if I am getting the terminology right.
-Please correct me if I am wrong.
+### 📝 API Notes
 
-Database board object should have the following fields
-* gameId : Long
-* boardStateID : Long
-* gameState : String
-* currentPlayer : Char
-* aiPlayer : Char
-* lastMove : String
-* isAIEnabled : Boolean
+- The game board is stored as a single string with `\n` as the delimiter separating rows.
+- Valid moves are returned using [chess algebra notation](https://en.wikipedia.org/wiki/Algebraic_notation_(chess)) (e.g., `E3`).
+- Player tokens:
+  - `'X'` → black pieces
+  - `'O'` → white pieces
+  - `' '` (space) → empty square
+- The current player is tracked using the `currentPlayer` field.
 
+---
 
-## Project Structure
-```text
-| | |-scala
-| | | |-org
-| | | | |-esotericcode
-| | | | | |-reversi
-| | | | | | |-gameengine
-| | | | | | | |-reversigameengine
-| | | | | | | | |-CommandLineGame.scala
-| | | | | | | | |-model
-| | | | | | | | | |-ImmutableReversiBoard.scala
-| | | | | | | | | |-ReversiAIHeuristic.scala
-| | | | | | | | | |-ReversiMinMaxTree.scala
-| |-test
-| | |-scala
-| | | |-org
-| | | | |-esotericcode
-| | | | | |-reversi
-| | | | | | |-gameengine
-| | | | | | | |-reversigameengine
-| | | | | | | | |-ImmutableReversiEngineGetValidMovesTest.scala
-| | | | | | | | |-ImmutableReversiEngineMakeMoveTest.scala
-| | | | | | | | |-model
-| | | | | | | | | |-ReversiMinMaxTreeTest.scala
+## 🗃️ Database Schema (GameBoard)
+
+```scala
+case class GameBoard(
+  gameId: Long,              // Unique game identifier
+  boardStateId: Long,        // Optional version ID for tracking board history
+  boardState: String,        // Serialized board state
+  currentPlayer: Char,       // 'X' or 'O'
+  aiPlayer: Char,            // 'X' or 'O' (if AI is participating)
+  isAIEnabled: Boolean       // Whether AI is enabled for the game
+)
 ```
-
-### 🛠 Requirements
-
-- Scala 3.6.4
-- Maven 3.9.9
-
-### 🔧 Setup
-
-1. **Clone the repository:**
-
-```bash
-git clone https://github.com/DanielLevenstein/reversi-game-engine.git
-cd reversi-scala-ai
-```
-
-## 📦 Build & Run (Maven)
-```bash
-    mvn clean package
-    java -cp reversi-game-engine-0.0.1-SNAPSHOT-jar-with-dependencies.jar org.esotericcode.reversi.gameengine.reversigameengine.CommandLineGame --ai-player O 
-```
+boardStateId may be used for versioning or move history tracking.
 
