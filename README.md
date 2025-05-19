@@ -1,7 +1,9 @@
 # Reversi AI (Scala)
 
 A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Alpha-Beta pruning, customizable heuristics, and support for future machine learning enhancements.
-
+- Java Version: 11.0.27
+- Scala Version: 2.13
+- SBT Version: 1.10.11
 ---
 
 ## 🚀 Features
@@ -48,18 +50,17 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
   - `'X'` → black pieces
   - `'O'` → white pieces
   - `' '` (space) → empty square
-- The current player is tracked using the `currentPlayer` field.
+- The current player is tracked using the `currentTurn` field.
 
 
 ```scala
 case class GameBoard(
   gameId: Long,              // Unique game identifier
-  boardStateId: Long,        // Optional version ID for tracking board history
   boardState: String,        // Serialized board state
-  currentPlayer: Char,       // 'X' or 'O'
+  currentTurn: Char,         // 'X' or 'O'
   aiPlayer: Char,            // 'X' or 'O' (if AI is participating)
   isAIEnabled: Boolean       // Whether AI is enabled for the game
 )
 ```
-boardStateId may be used for versioning or move history tracking.
 
+For future versions we could separate the board object from the meta-data
