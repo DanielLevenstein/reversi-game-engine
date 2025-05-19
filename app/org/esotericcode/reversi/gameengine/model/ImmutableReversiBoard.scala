@@ -48,6 +48,10 @@ class ImmutableReversiBoard(val gameBoard: String) {
     }
   }
 
+  def getNextTurn(player: Char) : Char = {
+    if(getValidMoves(getOpponent(player)).isEmpty) player else getOpponent(player)
+  }
+
   // TODO: Remove /n character from board strings and change constant to 8
   def setPiece(boardString: StringBuilder, letterIndex: Int, numIndex: Int, player: Char): StringBuilder = {
     val charIndex = (numIndex * 9) + letterIndex

@@ -48,7 +48,7 @@ class GameBoardRepository @Inject()(protected val dbConfigProvider: DatabaseConf
     db.run(gameBoards += gameBoard)
 
   def updateGameBoard(gameId: Long, boardState: String, currentTurn: String,
-                      aiPlayer: String, lastMove: String, isAIEnabled: Boolean): Future[Int] = {
+                      aiPlayer: String, isAIEnabled: Boolean): Future[Int] = {
     val query = gameBoards.filter(_.gameId === gameId)
       .map(gb => (gb.boardState, gb.currentTurn, gb.aiPlayer, gb.isAIEnabled))
       .update((boardState, currentTurn, aiPlayer, isAIEnabled))

@@ -1,6 +1,6 @@
 package org.esotericcode.reversi.gameengine.dao
 
-import org.esotericcode.reversi.gameengine.model.GameBoard
+import org.esotericcode.reversi.gameengine.model.{GameBoard, ImmutableReversiBoard}
 import play.api.db.slick.DatabaseConfigProvider
 import org.esotericcode.reversi.gameengine.repository.GameBoardRepository
 import slick.jdbc.JdbcProfile

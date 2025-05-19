@@ -35,14 +35,21 @@ class GameService @Inject()(
     }
   }
 
-  def makeMove(gameId: Long, move: String, player: String): Future[Object] = {
+  def makeMove(gameId: Long, player: String, move: String): Future[Option[GameBoard]] = {
     dao.getGameBoard(gameId).map {
       case Some(gameBoard: GameBoard) =>
-        val reversiBoard = new ImmutableReversiBoard(gameBoard.boardState)
-        reversiBoard.makeMove(move, player)
+        makeMoveHelper(gameId, gameBoard, player, move)
       case None =>
-        Seq.empty
+        None
     }
+  }
+
+  def makeMoveHelper(gameId: Long, gameBoard: GameBoard, player: String, move: String): Some[GameBoard] = {
+    val reversiBoard = new ImmutableReversiBoard(gameBoard.boardState)
+    val updatedBoard = reversiBoard.makeMove(move, player)
+    val nextPlayer = updatedBoard.getNextTurn(player.charAt(0)).toString
+    dao.updateGameBoard(gameId, updatedBoard.gameBoard, nextPlayer)
+    Some(GameBoard(gameId, updatedBoard.gameBoard, nextPlayer, gameBoard.aiPlayer, gameBoard.isAIEnabled))
   }
 
 
@@ -57,16 +64,29 @@ class GameService @Inject()(
   }
 
 
-  def getAIMove(gameId: Long): Future[Option[String]] = {
+  def getAIMove(gameId: Long, aiPlayer: String): Future[Option[String]] = {
     // Return AI move using Minimax tree
     dao.getGameBoard(gameId).map {
       case Some(gameBoard: GameBoard) =>
-        val reversiBoard = new ImmutableReversiBoard(gameBoard.boardState)
-        val scoredNode: ScoredNode = Node(reversiBoard, gameBoard.aiPlayer.charAt(0), None).calculate(5)
-        scoredNode.node.move.getOrElse(None).asInstanceOf[Option[String]]
+        getAiMoveHelper(gameId, gameBoard, aiPlayer)
       case None =>
         None
     }
   }
 
+  def getAiMoveHelper(gameId: Long, gameBoard: GameBoard, aiPlayer: String): Option[String] = {
+    val reversiBoard = new ImmutableReversiBoard(gameBoard.boardState)
+    val scoredNode: ScoredNode = Node(reversiBoard, aiPlayer.charAt(0), None).calculate(5)
+    scoredNode.node.move.getOrElse(None).asInstanceOf[Option[String]]
+  }
+
+  def makeAIMove(gameId: Long, aiPlayer: String): Future[Option[GameBoard]] = {
+    // Return AI move using Minimax tree
+    dao.getGameBoard(gameId).map {
+      case Some(gameBoard: GameBoard) =>
+        val move = getAiMoveHelper(gameId, gameBoard, aiPlayer).get
+        makeMoveHelper(gameId, gameBoard, aiPlayer, move)
+      case None => None
+    }
+  }
 }
