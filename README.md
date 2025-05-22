@@ -57,10 +57,10 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 case class GameBoard(
   gameId: Long,              // Unique game identifier
   boardState: String,        // Serialized board state
-  currentTurn: Char,         // 'X' or 'O'
-  aiPlayer: Char,            // 'X' or 'O' (if AI is participating)
+  currentTurn: String,       // "X" or "O"
+  lastMove: String           // Last move made by player or AI empty string for first move                  
+  aiPlayer: String,          // "X" or "O" (if AI is participating) empty string if not
   isAIEnabled: Boolean       // Whether AI is enabled for the game
 )
 ```
 
-For future versions we could separate the board object from the meta-data

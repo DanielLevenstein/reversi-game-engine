@@ -18,7 +18,7 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
 
   def createSample: Action[AnyContent] = Action.async {
     val sampleBoard = GameBoard(1L, ImmutableReversiBoard.getEmptyBoard.gameBoard,
-      "X", "O", isAIEnabled = true)
+      "X", "","O", isAIEnabled = true)
     gameService.insertGameBoard(sampleBoard).map { _ =>
       Ok("Inserted sample game board")
     }
@@ -26,16 +26,16 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
 
   def newGame: Action[AnyContent] = Action.async {
     val sampleBoard = GameBoard(Random.nextLong(), ImmutableReversiBoard.getEmptyBoard.gameBoard,
-      "X", "O", isAIEnabled = true)
+      "X", "","O", isAIEnabled = true)
     gameService.insertGameBoard(sampleBoard).map { _ =>
-      Ok(Json.toJson( sampleBoard.gameId))
+      Ok(Json.toJson(sampleBoard.gameId))
     }
   }
 
   def getSample: Action[AnyContent] = Action.async {
     gameService.getBoard(1L).map {
       case Some(board) => Ok(s"Got board: $board")
-      case None        => NotFound("No board found")
+      case None => NotFound("No board found")
     }
   }
 
@@ -51,6 +51,7 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
       Ok(Json.toJson(moves))
     }
   }
+
   def isValidMove(gameId: Long, player: String, move: String): Action[AnyContent] = Action.async {
     gameService.isValidMove(gameId, player, move).map { isValid =>
       Ok(Json.obj("valid" -> isValid))
@@ -78,10 +79,11 @@ class GameController @Inject()(cc: ControllerComponents, gameService: GameServic
       case None => NotFound(Json.obj("error" -> "No valid AI move found"))
     }
   }
+
   def makeAIMove(gameId: Long): Action[JsValue] = Action.async(parse.json) { request =>
     val player = (request.body \ "ai-player").as[String]
 
-    gameService.makeAIMove(gameId, player).map{
+    gameService.makeAIMove(gameId, player).map {
       case Some(result) => Ok(Json.toJson(result))
       case None => NotFound(Json.obj("error" -> "No valid AI move found"))
     }
