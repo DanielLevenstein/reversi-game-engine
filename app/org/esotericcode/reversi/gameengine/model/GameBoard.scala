@@ -11,6 +11,7 @@ case class GameBoard(
                       gameId: Long,
                       boardState: String,
                       currentTurn: String,
+                      lastMove: String,
                       aiPlayer: String,
                       isAIEnabled: Boolean
                     )
@@ -26,13 +27,14 @@ class GameBoardRepository @Inject()(protected val dbConfigProvider: DatabaseConf
   import profile.api._
 
   private class GameBoardTable(tag: Tag) extends Table[GameBoard](tag, "game_boards") {
-    def gameId = column[Long]("game_id", O.PrimaryKey)
-    def boardState = column[String]("board_state")
-    def currentTurn = column[String]("current_turn")
-    def aiPlayer = column[String]("ai_player")
-    def isAIEnabled = column[Boolean]("ai_enabled")
+    def gameId: Rep[Long] = column[Long]("game_id", O.PrimaryKey)
+    def boardState: Rep[String] = column[String]("board_state")
+    def currentTurn: Rep[String] = column[String]("current_turn")
+    def lastMove: Rep[String] = column[String]("last_move")
+    def aiPlayer: Rep[String] = column[String]("ai_player")
+    def isAIEnabled: Rep[Boolean] = column[Boolean]("ai_enabled")
 
-    def * = (gameId, boardState, currentTurn, aiPlayer, isAIEnabled) <> (
+    def * = (gameId, boardState, currentTurn, lastMove, aiPlayer, isAIEnabled) <> (
       (GameBoard.apply _).tupled,
       GameBoard.unapply
     )
@@ -47,11 +49,11 @@ class GameBoardRepository @Inject()(protected val dbConfigProvider: DatabaseConf
   def insertGameBoard(gameBoard: GameBoard): Future[Int] =
     db.run(gameBoards += gameBoard)
 
-  def updateGameBoard(gameId: Long, boardState: String, currentTurn: String,
+  def updateGameBoard(gameId: Long, boardState: String, currentTurn: String, lastMove: String,
                       aiPlayer: String, isAIEnabled: Boolean): Future[Int] = {
     val query = gameBoards.filter(_.gameId === gameId)
-      .map(gb => (gb.boardState, gb.currentTurn, gb.aiPlayer, gb.isAIEnabled))
-      .update((boardState, currentTurn, aiPlayer, isAIEnabled))
+      .map(gb => (gb.boardState, gb.currentTurn, gb.lastMove, gb.aiPlayer, gb.isAIEnabled))
+      .update((boardState, currentTurn, lastMove, aiPlayer, isAIEnabled))
     db.run(query)
   }
 }

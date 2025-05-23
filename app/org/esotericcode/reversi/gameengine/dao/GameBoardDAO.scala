@@ -18,13 +18,14 @@ class GameBoardDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit 
 
   // Define the Table Schema
   class GameBoardsTable(tag: Tag) extends Table[GameBoard](tag, "game_board") {
-    def gameId = column[Long]("game_id", O.PrimaryKey)
-    def boardState = column[String]("board_state")
-    def currentTurn = column[String]("current_turn")
-    def aiPlayer = column[String]("ai_player")
-    def isAIEnabled = column[Boolean]("is_ai_enabled")
+    def gameId: Rep[Long] = column[Long]("game_id", O.PrimaryKey)
+    def boardState: Rep[String] = column[String]("board_state")
+    def currentTurn: Rep[String] = column[String]("current_turn")
+    def lastMove: Rep[String] = column[String]("last_move")
+    def aiPlayer: Rep[String] = column[String]("ai_player")
+    def isAIEnabled: Rep[Boolean] = column[Boolean]("is_ai_enabled")
 
-    def * = (gameId, boardState, currentTurn, aiPlayer, isAIEnabled) <> (
+    def * = (gameId, boardState, currentTurn, lastMove, aiPlayer, isAIEnabled) <> (
       (GameBoard.apply _).tupled,
       GameBoard.unapply
     )
@@ -56,8 +57,8 @@ class GameBoardDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit 
   }
 
   // Update the boardState and currentTurn of a GameBoard
-  def updateGameBoard(gameId: Long, boardState: String, currentTurn: String): Future[Int] = {
-    db.run(gameBoards.filter(_.gameId === gameId).map(gb => (gb.boardState, gb.currentTurn))
-      .update(boardState, currentTurn))
+  def updateGameBoard(gameId: Long, boardState: String, currentTurn: String, lastMove: String): Future[Int] = {
+    db.run(gameBoards.filter(_.gameId === gameId).map(gb => (gb.boardState, gb.currentTurn, gb.lastMove))
+      .update(boardState, currentTurn, lastMove))
   }
 }

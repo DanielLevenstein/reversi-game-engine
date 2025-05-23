@@ -47,8 +47,8 @@ class GameService @Inject()(
     val reversiBoard = new ImmutableReversiBoard(gameBoard.boardState)
     val updatedBoard = reversiBoard.makeMove(move, player)
     val nextPlayer = updatedBoard.getNextTurn(player.charAt(0)).toString
-    dao.updateGameBoard(gameId, updatedBoard.gameBoard, nextPlayer)
-    Some(GameBoard(gameId, updatedBoard.gameBoard, nextPlayer, gameBoard.aiPlayer, gameBoard.isAIEnabled))
+    dao.updateGameBoard(gameId, updatedBoard.gameBoard, nextPlayer, move)
+    Some(GameBoard(gameId, updatedBoard.gameBoard, nextPlayer, move, gameBoard.aiPlayer, gameBoard.isAIEnabled))
   }
 
 

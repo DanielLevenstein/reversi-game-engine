@@ -6,6 +6,18 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 - SBT Version: 1.10.11
 ---
 
+## 🛠️ Build Instructions
+
+To build and run the project locally
+```bash
+sbt compile &&
+sbt run
+```
+The application ion will be available at 
+```bash
+http://localhost:9000
+```
+
 ## 🚀 Features
 
 - Core Reversi game logic
@@ -29,7 +41,7 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 - This is a work-in-progress and subject to change
 - Below is a list of currently supported methods:
 
-### REST API Methods
+### 🧭 REST API Methods
 
 | Method | Endpoint                             | Description                              |
 |--------|--------------------------------------|------------------------------------------|
@@ -59,10 +71,10 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 case class GameBoard(
   gameId: Long,              // Unique game identifier
   boardState: String,        // Serialized board state
-  currentTurn: Char,         // 'X' or 'O'
-  aiPlayer: Char,            // 'X' or 'O' (if AI is participating)
+  currentTurn: String,       // "X" or "O"
+  lastMove: String           // Last move made by player or AI empty string for first move                  
+  aiPlayer: String,          // "X" or "O" (if AI is participating) empty string if not
   isAIEnabled: Boolean       // Whether AI is enabled for the game
 )
 ```
 
-For future versions we could separate the board object from the meta-data
