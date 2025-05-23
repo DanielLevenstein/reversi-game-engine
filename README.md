@@ -6,6 +6,18 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 - SBT Version: 1.10.11
 ---
 
+## 🛠️ Build Instructions
+
+To build and run the project locally
+```bash
+sbt compile &&
+sbt run
+```
+The application ion will be available at 
+```bash
+http://localhost:9000
+```
+
 ## 🚀 Features
 
 - Core Reversi game logic
@@ -27,7 +39,7 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 - This is a work-in-progress and subject to change
 - Below is a list of currently supported methods:
 
-### REST API Methods
+### 🧭 REST API Methods
 
 | Method | Endpoint                             | Description                              |
 |--------|--------------------------------------|------------------------------------------|
