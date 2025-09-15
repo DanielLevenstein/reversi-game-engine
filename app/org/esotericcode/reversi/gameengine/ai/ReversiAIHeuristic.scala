@@ -20,22 +20,31 @@ object ReversiAIHeuristic {
     for(i <- 0 until 8){
       for(j <- 0 until 8){
         if(board.getPiece(i,j) == player){
-
-          // +10 for all and corners and edges -5 for all pieces adjacent to corners and +5 for all edges.
-          if(i == 0 || i == 7 || j == 0 || j == 7){
-            if(j == 1 || j == 6 || i == 1 || i == 6){
-              score -= 5
+          if(i == 0 || i == 7){ // Piece is on edge
+            if(j == 0 || j == 7) { // Take corner if possible
+              score += 10
+            }
+            else if(i == 1 || i == 6){ // Don't give away corner
+              score -=5
             } else {
-              if((i == 0 && j == 0) || (i == 7 && j == 7) || (i == 7 && j == 0) || (i == 0 && j == 7)) {
-                score += 5
-              } else {
-                score += 10
-              }
+              score += 5 // Other edge pieces are good
             }
           }
-
-          if((i == 1 && j == 1) || (i == 6 && j == 6) || (i == 6 && j == 1) || (i == 1 && j == 6)){
-            score -= 5
+          else if(j == 0 || j == 7){ // Piece is on edge
+            if(i == 1 || i == 6){ // Don't give away corner
+              score -=5
+            } else {
+              score += 5 // Other edge pieces are good
+            }
+          }
+          else if(i == 1 || i == 6){ // piece is adjacent to edge
+            score -=1
+            if(j == 1 || j == 6){ // Piece is diagonal from corner
+              score -=10
+            }
+          }
+          else if(j == 1 || j == 6){ // piece is adjacent to edge
+            score -=1
           }
         }
       }
