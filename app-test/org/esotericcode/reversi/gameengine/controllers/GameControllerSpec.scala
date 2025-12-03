@@ -1,5 +1,6 @@
 package  org.esotericcode.reversi.gameengine.controllers
 
+import com.google.inject.Singleton
 import org.mockito.Mockito._
 import org.scalatest.concurrent.PatienceConfiguration.Timeout
 import org.scalatest.time.SpanSugar.convertIntToGrainOfTime
@@ -12,6 +13,7 @@ import org.esotericcode.reversi.gameengine.service.GameService
 
 import scala.concurrent.{ExecutionContext, Future}
 
+@Singleton
 class GameControllerSpec extends PlaySpec with GuiceOneAppPerTest with MockitoSugar {
 
   implicit val ec: ExecutionContext = scala.concurrent.ExecutionContext.global
