@@ -5,8 +5,16 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 - Scala Version: 2.13
 - SBT Version: 1.10.11
 ---
+# CLI implementation
 
-## 🛠️ Build Instructions
+This app includes a fully functioning command line API. To use it follow the following instructions.
+
+- Clone the repo locally    `git clone git@github.com:DanielLevenstein/reversi-game-engine.git`
+- Navigate to reversi-game-engine dir `cd reversi-game-engine`
+- Checkout the cli-feature branch `git checkout cli-feature`
+- run the cli.sh or cli.bat file on your local computer.
+
+## 🛠️ Full Build Instructions
 
 ### Prerequisites
 
