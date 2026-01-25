@@ -6,7 +6,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/application.properties
-conf/application.conf.template
 ### STS ###
 .apt_generated
 .classpath

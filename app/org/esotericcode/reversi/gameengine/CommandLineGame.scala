@@ -6,6 +6,7 @@ package org.esotericcode.reversi.gameengine
 
   object CommandLineGame {
   def main(args: Array[String]): Unit = {
+    print(args.toList)
     var aiPlayer = None : Option[Char]
     var lookahead = None : Option[Int]
     var allAI = false
@@ -43,7 +44,7 @@ package org.esotericcode.reversi.gameengine
       }
       else {
         System.out.println("Enter move in algebraic notation for player " + currentPlayer + ": ")
-        val algebraicNotation = System.console.readLine
+        val algebraicNotation = scala.io.StdIn.readLine()
         if (algebraicNotation != "q") {
           val board2 = board.makeMove(algebraicNotation, currentPlayer)
           val opponent = ImmutableReversiBoard.getOpponent(currentPlayer)

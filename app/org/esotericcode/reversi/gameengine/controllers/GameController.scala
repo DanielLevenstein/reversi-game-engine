@@ -2,12 +2,11 @@ package org.esotericcode.reversi.gameengine.controllers
 
 import javax.inject._
 import org.esotericcode.reversi.gameengine.model.{GameBoard, ImmutableReversiBoard}
+import play.api.cache.AsyncCacheApi
 import play.api.libs.json.Format.GenericFormat
 import play.api.libs.json.{JsValue, Json, Writes}
 import play.api.mvc.{Action, _}
 import org.esotericcode.reversi.gameengine.service.GameService
-import play.api.libs.json.JsPath.\
-import play.api.libs.json.OFormat.oFormatFromReadsAndOWrites
 
 import scala.concurrent.ExecutionContext
 import scala.util.Random
