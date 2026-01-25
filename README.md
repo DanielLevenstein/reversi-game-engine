@@ -16,12 +16,6 @@ This app includes a fully functioning command line API. To use it follow the fol
 
 ## 🛠️ Full Build Instructions
 
-### Prerequisites
-
-- Java Version: 11.0.27
-- Scala Version: 2.13
-- SBT Version: 1.10.11
-
 ### Installing SBT on Windows
 
 If you don't have SBT installed, follow these steps:
