@@ -1,3 +1,6 @@
+import sbtassembly.AssemblyPlugin.autoImport._
+import sbt.Keys._
+
 ThisBuild / scalaVersion := "2.13.14"
 ThisBuild / version := "0.0.1-SNAPSHOT"
 ThisBuild / organization := "org.esotericcode.reversi.gameengine"
@@ -58,4 +61,13 @@ assembly / assemblyMergeStrategy := {
   case PathList("META-INF", xs @ _*) => MergeStrategy.discard
   case "reference.conf"              => MergeStrategy.concat
   case x                             => MergeStrategy.first
+}
+
+assembly / assemblyOutputPath := {
+  val jar = (assembly / assemblyJarName).value
+  val targetJar = target.value / "scala-2.13" / jar
+  val releaseJar = baseDirectory.value / "releases" / jar
+  IO.copyFile(targetJar, releaseJar)
+  streams.value.log.info(s"Copied fat JAR to releases/$jar")
+  releaseJar
 }
