@@ -34,3 +34,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# ignore log files
+*.log
+test-build.txt

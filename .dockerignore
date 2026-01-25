@@ -1,0 +1,14 @@
+target/
+.git/
+.gitignore
+.DS_Store
+*.md
+.metals/
+.vscode/
+.idea/
+*.iml
+dist/
+*.log
+node_modules/
+ReversiAIDesign*
+.env*
