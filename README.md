@@ -13,6 +13,23 @@ This app includes a fully functioning command line API. To use it follow the fol
 - Navigate to reversi-game-engine dir `cd reversi-game-engine`
 - Checkout the cli-feature branch `git checkout cli-feature`
 - run the cli.sh or cli.bat file on your local computer.
+---
+
+## 🚀 Features
+
+- Core Reversi game logic
+- Minimax algorithm with:
+    - Heuristic scoring
+    - Move tracking
+    - Evaluation caching
+- REST API to interface with backend logic
+- Future Plans
+    - Implement front end and host in AWS
+    - Support for machine-learning-driven heuristics
+    - Database integration for persistent evaluation caching
+    - Iterative deepening and move ordering optimizations
+
+---
 
 ## 🛠️ Full Build Instructions
 
@@ -229,22 +246,6 @@ docker build -t reversi-game-engine:latest .
 ```
 
 If that fails, provide the full error output for more specific troubleshooting.
-
----
-
-## 🚀 Features
-
-- Core Reversi game logic
-- Minimax algorithm with:
-  - Heuristic scoring
-  - Move tracking
-  - Evaluation caching
-- REST API to interface with backend logic 
-- Future Plans
-  - Implement front end and host in AWS
-  - Support for machine-learning-driven heuristics
-  - Database integration for persistent evaluation caching
-  - Iterative deepening and move ordering optimizations
 
 ---
 
