@@ -1,7 +1,7 @@
 # Reversi AI (Scala)
 
 A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Alpha-Beta pruning, customizable heuristics, and support for future machine learning enhancements.
-- Java Version: 11.0.27
+- Java Version: 17.1.2
 - Scala Version: 2.13
 - SBT Version: 1.10.11
 ---

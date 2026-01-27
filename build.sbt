@@ -9,6 +9,7 @@ lazy val caffeineCacheVersion = "3.2.3"
 lazy val slickVersion = "3.3.3"
 lazy val playSlickVersion = "5.0.0"
 lazy val playJsonVersion = "2.8.0"
+lazy val playNettyServerVersion = "2.9.5"
 lazy val scalatestPlusPlayVersion = "5.1.0"
 lazy val scalatestPlusMockitoVersion = "3.2.16.0"
 lazy val mockitoCoreVersion = "5.14.2"
@@ -25,6 +26,7 @@ Test / scalaSource := baseDirectory.value / "app-test"
 
 // Dependencies
 libraryDependencies ++= Seq(
+  "com.typesafe.play" %% "play-netty-server" % playNettyServerVersion,
   "com.typesafe.play" %% "play" % playVersion,
   "com.typesafe.play" %% "play-slick" % playSlickVersion,
   "com.typesafe.play" %% "play-json" % playJsonVersion,
@@ -44,6 +46,8 @@ libraryDependencies ++= Seq(
   "org.junit.jupiter" % "junit-jupiter-engine" % "5.10.2" % Test,
   "org.scalamock" %% "scalamock" % "7.3.2" % Test
 )
+dependencyOverrides += "org.scala-lang.modules" %% "scala-xml" % "2.3.0"
+dependencyOverrides += "org.slf4j" % "slf4j-api" % "1.7.36"
 dependencyOverrides += "org.scala-lang.modules" %% "scala-xml" % "2.3.0"
 
 // Scala compiler options
