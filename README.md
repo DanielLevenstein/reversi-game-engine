@@ -5,7 +5,7 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 - Scala Version: 2.13
 - SBT Version: 1.10.11
 ---
-# CLI implementation
+# Command Line Runner No Local Build Required
 
 This app includes a fully functioning command line API. To use it follow the following instructions.
 
