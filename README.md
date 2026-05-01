@@ -45,7 +45,7 @@ git clone https://github.com/DanielLevenstein/reversi-front-end.git
 npm run dev
 ```
 
-# Command Line Runner No Local Build Required
+# Command Line Runner
 
 This app includes a fully functioning command line API. To use it follow the following instructions.
 
