@@ -5,6 +5,30 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 - Scala Version: 2.13
 - SBT Version: 1.10.11
 ---
+
+# Front End Implementation
+A new front end has been added to this reversi AI engine.
+
+## Instructions to run
+
+checkout and run reversi-game-engine backend
+```
+git clone https://github.com/DanielLevenstein/reversi-game-engine.git
+```
+```
+cp ./conf/application.conf.template ./conf/application.conf
+docker build -t reversi-game-engine:latest .
+docker run -p 9000:9000 reversi-game-engine:latest
+```
+
+checkout and run reversi-front-end
+```
+git clone https://github.com/DanielLevenstein/reversi-front-end.git
+```
+```
+npm run dev
+```
+
 # Command Line Runner No Local Build Required
 
 This app includes a fully functioning command line API. To use it follow the following instructions.
@@ -13,6 +37,7 @@ This app includes a fully functioning command line API. To use it follow the fol
 - Navigate to reversi-game-engine dir `cd reversi-game-engine`
 - Checkout the cli-feature branch `git checkout cli-feature`
 - run the cli.sh or cli.bat file on your local computer.
+
 ---
 
 ## 🚀 Features
