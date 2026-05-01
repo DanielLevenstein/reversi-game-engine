@@ -6,6 +6,22 @@ A Scala-based implementation of Reversi (Othello) featuring a Minimax AI with Al
 - SBT Version: 1.10.11
 ---
 
+## 🚀 Features
+
+- Core Reversi game logic
+- Minimax algorithm with:
+    - Heuristic scoring
+    - Move tracking
+    - Evaluation caching
+- REST API to interface with backend logic
+- Future Plans
+    - Implement front end and host in AWS
+    - Support for machine-learning-driven heuristics
+    - Database integration for persistent evaluation caching
+    - Iterative deepening and move ordering optimizations
+
+---
+
 # Front End Implementation
 A new front end has been added to this reversi AI engine.
 
@@ -40,23 +56,7 @@ This app includes a fully functioning command line API. To use it follow the fol
 
 ---
 
-## 🚀 Features
-
-- Core Reversi game logic
-- Minimax algorithm with:
-    - Heuristic scoring
-    - Move tracking
-    - Evaluation caching
-- REST API to interface with backend logic
-- Future Plans
-    - Implement front end and host in AWS
-    - Support for machine-learning-driven heuristics
-    - Database integration for persistent evaluation caching
-    - Iterative deepening and move ordering optimizations
-
----
-
-## 🛠️ Full Build Instructions
+# 🛠️ Full Build Instructions
 
 ### Installing SBT on Windows
 
